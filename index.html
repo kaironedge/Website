@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Thesis: November 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-dark': '#0A2E46',
+                        'brand-medium': '#0B4F6C',
+                        'brand-accent-spy': '#20A4F3',
+                        'brand-accent-xrt': '#81D4FA',
+                        'brand-neutral-light': '#F8F9FA',
+                        'brand-neutral-dark': '#212529',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 40vh;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+                max-height: 50vh;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-brand-dark font-sans">
+
+    <div class="container max-w-6xl mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-3xl md:text-5xl font-bold text-white mb-2">Investment Thesis: November 2025</h1>
+            <p class="text-xl md:text-2xl font-light text-brand-accent-xrt">Riding Momentum with a Tactical Retail
+                Rotation</p>
+        </header>
+
+        <main class="space-y-8">
+
+            <section class="bg-brand-neutral-light rounded-lg shadow-xl p-6 md:p-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-brand-dark mb-4">
+                    Section 1: The Macro Backdrop
+                </h2>
+                <p class="text-base md:text-lg text-brand-neutral-dark mb-6">
+                    The market enters the final two months of the year with significant momentum, supported by an
+                    accommodative Federal Reserve. With inflation remaining tame, the Fed has continued its easing
+                    cycle, creating a tailwind for risk assets.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-brand-accent-spy">
+                        <div class="text-base font-semibold text-brand-medium mb-1">S&P 500 (SPY) YTD Return</div>
+                        <div class="text-5xl font-bold text-brand-accent-spy">+16.7%</div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-brand-dark">
+                        <div class="text-base font-semibold text-brand-medium mb-1">Fed Funds Target Rate</div>
+                        <div class="text-5xl font-bold text-brand-dark">3.75-4.0%</div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-brand-medium">
+                        <div class="text-base font-semibold text-brand-medium mb-1">Current Fed Stance</div>
+                        <div class="text-5xl font-bold text-brand-medium flex items-center justify-center">
+                            <span class="mr-2">▼</span> Easing
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-brand-neutral-light rounded-lg shadow-xl p-6 md:p-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-brand-dark mb-4">
+                    Thesis 1: Strong Markets Get Stronger
+                </h2>
+                <p class="text-base md:text-lg text-brand-neutral-dark mb-6">
+                    History shows that when the SPY has gained over 10% by the end of October (an event that occurred 8
+                    times since 2006), both the broad market and the retail sector tend to continue climbing into the
+                    year's end.
+                </p>
+                <div class="chart-container">
+                    <canvas id="thesis1Chart"></canvas>
+                </div>
+                <p class="text-center text-sm text-brand-neutral-dark mt-4">
+                    In these 8 instances, the Retail ETF (XRT) posted a slightly higher average return for the rest of
+                    the year (RoY) than the S&P 500 (SPY).
+                </p>
+            </section>
+
+            <section class="bg-brand-neutral-light rounded-lg shadow-xl p-6 md:p-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-brand-dark mb-4">
+                    Thesis 2: The Retail "Catch-Up" Trade
+                </h2>
+                <p class="text-base md:text-lg text-brand-neutral-dark mb-6">
+                    Our core thesis identifies a specific, powerful pattern. In years where the SPY was strong (>10%
+                    YTD) but XRT was lagging (flat or negative), the retail sector has historically "caught up" with
+                    dramatic outperformance in the final two months. The 2025 setup (SPY +16.7%, XRT +2.1%) perfectly
+                    matches this historical precedent.
+                </p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold text-brand-dark text-center mb-2">The Divergence: YTD
+                            Performance</h3>
+                        <p class="text-sm text-brand-neutral-dark mb-4 text-center">
+                            This chart shows the YTD performance gap in historical "catch-up" years, plus the current
+                            2025 setup.
+                        </p>
+                        <div class="chart-container">
+                            <canvas id="thesis2ChartYTD"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-brand-dark text-center mb-2">The Payoff: Rest-of-Year
+                            (RoY) Performance</h3>
+                        <p class="text-sm text-brand-neutral-dark mb-4 text-center">
+                            In 100% of these past instances, XRT strongly outperformed SPY for the rest of the year.
+                        </p>
+                        <div class="chart-container">
+                            <canvas id="thesis2ChartRoY"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-brand-neutral-light rounded-lg shadow-xl p-6 md:p-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-brand-dark mb-4">
+                    Section 2: The 2025 Strategy
+                </h2>
+                <p class="text-base md:text-lg text-brand-neutral-dark mb-6">
+                    Based on this analysis, we will adopt a bullish stance with a specific tactical tilt toward the
+                    retail sector, positioning the fund to capture both broad market momentum and the anticipated
+                    "catch-up" rally in XRT.
+                </p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div class="lg:order-2">
+                        <h3 class="text-xl font-semibold text-brand-dark text-center mb-2">Execution Plan</h3>
+                        <div class="flex flex-col items-center justify-center space-y-4">
+                            <div
+                                class="p-4 bg-white border-2 border-brand-medium rounded-lg shadow text-center w-full max-w-sm">
+                                <span class="text-sm font-semibold text-brand-dark">Step 1</span>
+                                <p class="text-base font-medium text-brand-medium">Allocate fund 50% in SPY and 50% in
+                                    XRT.</p>
+                            </div>
+                            <div class="text-3xl font-bold text-brand-medium">↓</div>
+                            <div
+                                class="p-4 bg-white border-2 border-brand-medium rounded-lg shadow text-center w-full max-w-sm">
+                                <span class="text-sm font-semibold text-brand-dark">Step 2</span>
+                                <p class="text-base font-medium text-brand-medium">Maintain a constant ratio of *share
+                                    count* for each ETF.</p>
+                            </div>
+                            <div class="text-3xl font-bold text-brand-medium">↓</div>
+                            <div
+                                class="p-4 bg-white border-2 border-brand-medium rounded-lg shadow text-center w-full max-w-sm">
+                                <span class="text-sm font-semibold text-brand-dark">Step 3</span>
+                                <p class="text-base font-medium text-brand-medium">Hold position until the end of the
+                                    year.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:order-1">
+                        <h3 class="text-xl font-semibold text-brand-dark text-center mb-2">Proposed Allocation</h3>
+                        <div class="chart-container h-[250px] md:h-[300px] max-h-[300px]">
+                            <canvas id="strategyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            function wrapLabel(label) {
+                const maxLen = 16;
+                if (label.length <= maxLen) {
+                    return label;
+                }
+
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+
+                words.forEach(word => {
+                    if ((currentLine + ' ' + word).trim().length > maxLen) {
+                        lines.push(currentLine.trim());
+                        currentLine = word;
+                    } else {
+                        currentLine = (currentLine + ' ' + word).trim();
+                    }
+                });
+                lines.push(currentLine.trim());
+                return lines;
+            }
+
+            function tooltipTitleCallback(tooltipItems) {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            }
+
+            const defaultChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#212529'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        ticks: { color: '#212529' },
+                        grid: { color: '#e0e0e0' }
+                    },
+                    x: {
+                        ticks: { color: '#212529' },
+                        grid: { display: false }
+                    }
+                }
+            };
+
+            const thesis1Ctx = document.getElementById('thesis1Chart').getContext('2d');
+            new Chart(thesis1Ctx, {
+                type: 'bar',
+                data: {
+                    labels: [wrapLabel('SPY Avg. RoY (when YTD > 10%)'), wrapLabel('XRT Avg. RoY (when YTD > 10%)')],
+                    datasets: [{
+                        label: 'Avg. Rest-of-Year Return',
+                        data: [4.0, 5.25],
+                        backgroundColor: [
+                            '#20A4F3',
+                            '#81D4FA'
+                        ],
+                        borderColor: [
+                            '#0B4F6C',
+                            '#0B4F6C'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    ...defaultChartOptions,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: defaultChartOptions.plugins.tooltip
+                    },
+                    scales: {
+                        y: {
+                            ...defaultChartOptions.scales.y,
+                            title: {
+                                display: true,
+                                text: 'Average Return (%)',
+                                color: '#212529'
+                            }
+                        },
+                        x: defaultChartOptions.scales.x
+                    }
+                }
+            });
+
+            const thesis2YTDColor = '#20A4F3';
+            const thesis2YTDColorXRT = '#81D4FA';
+
+            const thesis2YtdCtx = document.getElementById('thesis2ChartYTD').getContext('2d');
+            new Chart(thesis2YtdCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['2014', '2017', '2019', '2024', 'NOW (2025)'],
+                    datasets: [
+                        {
+                            label: 'SPY YTD %',
+                            data: [10.2, 14.2, 21.2, 20.3, 16.7],
+                            backgroundColor: thesis2YTDColor,
+                            borderColor: '#0B4F6C',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'XRT YTD %',
+                            data: [1.2, -10.9, 3.8, 3.7, 2.1],
+                            backgroundColor: thesis2YTDColorXRT,
+                            borderColor: '#0B4F6C',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    ...defaultChartOptions,
+                    scales: {
+                        y: {
+                            ...defaultChartOptions.scales.y,
+                            title: {
+                                display: true,
+                                text: 'YTD Return (%)',
+                                color: '#212529'
+                            }
+                        },
+                        x: defaultChartOptions.scales.x
+                    }
+                }
+            });
+
+            const thesis2RoyCtx = document.getElementById('thesis2ChartRoY').getContext('2d');
+            new Chart(thesis2RoyCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['2014', '2017', '2019', '2024'],
+                    datasets: [
+                        {
+                            label: 'SPY RoY %',
+                            data: [1.9, 3.8, 6.1, 3.1],
+                            backgroundColor: thesis2YTDColor,
+                            borderColor: '#0B4F6C',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'XRT RoY %',
+                            data: [8.6, 14.4, 6.6, 6.2],
+                            backgroundColor: thesis2YTDColorXRT,
+                            borderColor: '#0B4F6C',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    ...defaultChartOptions,
+                    scales: {
+                        y: {
+                            ...defaultChartOptions.scales.y,
+                            title: {
+                                display: true,
+                                text: 'Rest-of-Year Return (%)',
+                                color: '#212529'
+                            }
+                        },
+                        x: defaultChartOptions.scales.x
+                    }
+                }
+            });
+
+            const strategyCtx = document.getElementById('strategyChart').getContext('2d');
+            new Chart(strategyCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['SPY', 'XRT'],
+                    datasets: [{
+                        label: 'Allocation',
+                        data: [50, 50],
+                        backgroundColor: [
+                            '#20A4F3',
+                            '#81D4FA'
+                        ],
+                        borderColor: '#F8F9FA',
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#212529',
+                                font: {
+                                    size: 14,
+                                    weight: '500'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback,
+                                label: function (context) {
+                                    return `${context.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
