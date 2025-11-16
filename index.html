@@ -349,7 +349,7 @@
 
             // 4. Options Chart - REPLACED with Plotly Heatmaps
             const heatmapDates = ['2025-11-05', '2025-11-06', '2025-11-07', '2025-11-10', '2025-11-11', '2025-11-12', '2025-11-13', '2025-11-14'];
-            const heatmapStrikes = [355, 362.5, 377.5, 385, 390, 392.5];
+            const heatmapStrikes = [347.5, 355, 360, 362.5, 365, 377.5, 385, 390, 392.5];
             const priceData = [378, 370, 370, 372, 374, 370, 368, 365];
 
             // Create 2D arrays for heatmap data, mapping strikes to indices
@@ -359,15 +359,28 @@
 
             // Populate Call Data
             zCall[strikeMap.get(392.5)][0] = 400; // Nov 5
-            zCall[strikeMap.get(377.5)][1] = 200; // Nov 6
+            zCall[strikeMap.get(385.0)][0] = 150; // Nov 5
+            zCall[strikeMap.get(377.5)][0] = 150; // Nov 5
+            zCall[strikeMap.get(385.0)][1] = 200; // Nov 6
+            zCall[strikeMap.get(377.5)][1] = 100; // Nov 6
             zCall[strikeMap.get(385.0)][2] = 200; // Nov 7
-            zCall[strikeMap.get(390.0)][3] = 350; // Nov 10
+            zCall[strikeMap.get(377.5)][2] = 50;  // Nov 7
+            zCall[strikeMap.get(390.0)][3] = 400; // Nov 10
+            zCall[strikeMap.get(385.0)][3] = 50;  // Nov 10
 
             // Populate Put Data
-            zPut[strikeMap.get(355.0)][3] = 250; // Nov 10
-            zPut[strikeMap.get(355.0)][4] = 250; // Nov 11
-            zPut[strikeMap.get(362.5)][5] = 200; // Nov 12
-            zPut[strikeMap.get(362.5)][7] = 200; // Nov 14
+            zPut[strikeMap.get(347.5)][0] = 100; // Nov 5
+            zPut[strikeMap.get(360.0)][0] = 100; // Nov 5
+            zPut[strikeMap.get(365.0)][1] = 150; // Nov 6
+            zPut[strikeMap.get(362.5)][2] = 100; // Nov 7
+            zPut[strikeMap.get(355.0)][3] = 250; // Nov 10 (200+ legend)
+            zPut[strikeMap.get(360.0)][3] = 150; // Nov 10
+            zPut[strikeMap.get(355.0)][4] = 250; // Nov 11 (200+ legend)
+            zPut[strikeMap.get(362.5)][4] = 100; // Nov 11
+            zPut[strikeMap.get(362.5)][5] = 150; // Nov 12
+            zPut[strikeMap.get(362.5)][6] = 100; // Nov 13
+            zPut[strikeMap.get(362.5)][7] = 150; // Nov 14
+            zPut[strikeMap.get(360.0)][7] = 100; // Nov 14
 
             const baseLayout = {
                 autosize: true,
