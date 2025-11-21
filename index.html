@@ -4,463 +4,710 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bullish Thesis: Home Depot (HD) Earnings</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
-    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Chosen Palette: Vibrant & Trustworthy (Light Grey BG, White Cards, Blue/Orange accents) -->
-    <!-- Application Structure Plan: A single-scroll narrative infographic. It flows from (1) The Problem: HD's underperformance vs. SPY, to (2) The Macro Catalyst: The housing market shift, (3) The Historical Precedent: Strong earnings history, (4) The Contrarian Signal: Recent option flow, and finally (5) The Actionable Trade. This linear story is the most persuasive way to build a case for an investor. -->
-    <!-- Visualization & Content Choices: 1. HD vs SPY -> Goal: Compare -> Viz: Line Chart (Chart.js). 2. Housing Catalyst -> Goal: Inform/Compare -> Viz: Two Bar Charts (Chart.js), New & Existing Sales. -> Justification: Shows a broad recovery. August New Sales spiked, and Sept Existing Sales ticked up. 3. Earnings History -> Goal: Compare -> Viz: Bar Chart (Chart.js). 4. Option Flow -> Goal: Relationship -> Viz: Heatmaps (Plotly.js). 5. Trade Idea -> Goal: Inform -> Viz: HTML Card. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        'brand-spy': '#3B82F6', // Blue
-                        'brand-hd': '#F97316',  // Orange
-                        'brand-call': '#16A34A', // Green
-                        'brand-put': '#DC2626',   // Red
-                        'card-bg': '#FFFFFF',
-                        'page-bg': '#F3F4F6',
-                        'text-header': '#111827',
-                        'text-body': '#374151',
-                    }
-                }
-            }
-        }
-    </script>
+    <title>Why are Markets Crashing? (Updated Analysis)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 400px;
-            max-height: 50vh;
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-red: #ef4444;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-orange: #f59e0b;
+            --border-color: #334155;
         }
 
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 450px;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Urbanist', sans-serif;
+            background-color: #cbd5e1;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            /* Hide scrollbars for presentation mode */
+        }
+
+        /* Navigation Controls */
+        .nav-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.8);
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: #2563eb;
+        }
+
+        .nav-btn:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .slide-counter {
+            color: var(--text-main);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: var(--bg-dark);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            display: none;
+            /* Hidden by default */
+            flex-direction: column;
+            padding: 60px;
+            /* Scale down for smaller screens in preview */
+            transform-origin: center center;
+        }
+
+        /* Show active slide */
+        .slide-container.active {
+            display: flex;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Scaling for Preview Window */
+        @media (max-width: 1300px) {
+            .slide-container {
+                transform: scale(0.8);
+            }
+        }
+
+        @media (max-width: 1000px) {
+            .slide-container {
+                transform: scale(0.6);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .slide-container {
+                transform: scale(0.4);
+            }
+        }
+
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 90% 10%, rgba(59, 130, 246, 0.1), transparent 40%),
+                radial-gradient(circle at 10% 90%, rgba(239, 68, 68, 0.05), transparent 40%);
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: 72px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+            width: 100%;
+        }
+
+        h3 {
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-bottom: 15px;
+        }
+
+        p,
+        li {
+            font-size: 20px;
+            color: #e2e8f0;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        strong {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            height: 100%;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .highlight-box {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 6px solid var(--accent-red);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box.blue {
+            background: rgba(59, 130, 246, 0.1);
+            border-left-color: var(--accent-blue);
+        }
+
+        .highlight-box.orange {
+            background: rgba(245, 158, 11, 0.1);
+            border-left-color: var(--accent-orange);
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .stat-val {
+            font-weight: 700;
+            font-size: 28px;
+        }
+
+        .stat-val.red {
+            color: var(--accent-red);
+        }
+
+        .stat-val.green {
+            color: #22c55e;
+        }
+
+        .chart-area {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            height: 220px;
+            gap: 15px;
+            padding-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .bar-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .bar-label {
+            width: 150px;
+            text-align: right;
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+
+        .bar-track {
+            flex-grow: 1;
+            background: var(--border-color);
+            height: 30px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .bar-fill.spike {
+            background: var(--accent-red);
+        }
+
+        /* Voter Split Styles */
+        .voter-group {
+            margin-bottom: 20px;
+        }
+
+        .voter-group-title {
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .voter-names {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .voter-tag {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 600;
+            border: 1px solid transparent;
+        }
+
+        .dove {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-green);
+            border-color: var(--accent-green);
+        }
+
+        .hawk {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--accent-red);
+            border-color: var(--accent-red);
+        }
+
+        .swing {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent-orange);
+            border-color: var(--accent-orange);
+        }
+
+        .lockstep-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .lockstep-icon {
+            font-size: 48px;
+            color: var(--accent-blue);
+        }
+
+        .lockstep-stat {
+            text-align: center;
+        }
+
+        .lockstep-stat h4 {
+            font-size: 48px;
+            margin: 0;
+            color: #fff;
+        }
+
+        .lockstep-stat span {
+            color: var(--text-muted);
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+
+        i {
+            margin-right: 12px;
+            width: 30px;
+            text-align: center;
         }
     </style>
 </head>
 
-<body class="bg-page-bg font-sans">
+<body>
 
-    <div class="container max-w-5xl mx-auto p-4 md:p-8">
+    <!-- NAVIGATION CONTROLS -->
+    <div class="nav-controls">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">Previous</button>
+        <div class="slide-counter" id="slideCounter">1 / 6</div>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next</button>
+    </div>
 
-        <header class="text-center mb-8 md:mb-12">
-            <h1 class="text-3xl md:text-5xl font-bold text-text-header mb-2">A Bullish Case for Home Depot (HD)</h1>
-            <p class="text-xl md:text-2xl font-light text-brand-hd">Pre-Earnings Tactical Opportunity</p>
-        </header>
-
-        <main class="space-y-8">
-
-            <section class="bg-card-bg rounded-lg shadow-lg p-6 md:p-8">
-                <h2 class="text-2xl md:text-3xl font-bold text-text-header mb-4">
-                    1. The Setup: A Lagger Ready to Leap
-                </h2>
-                <p class="text-base md:text-lg text-text-body mb-6">
-                    This year, Home Depot has significantly underperformed the S&P 500. While the broader market
-                    rallied, HD remained flat to down, creating a valuation gap and a prime opportunity for a "catch-up"
-                    trade as it heads into a historically strong event.
-                </p>
-                <div class="chart-container">
-                    <canvas id="spyVsHdChart"></canvas>
-                </div>
-            </section>
-
-            <section class="bg-card-bg rounded-lg shadow-lg p-6 md:p-8">
-                <h2 class="text-2xl md:text-3xl font-bold text-text-header mb-4">
-                    2. The Macro Catalyst: A Housing Rebound
-                </h2>
-                <p class="text-base md:text-lg text-text-body mb-6">
-                    The primary headwind for HD—a slumping housing market—appears to be easing. While Sep data for *new*
-                    home sales is pending, the last report (Aug) showed a massive spike. More recently, the Sep data for
-                    *existing* home sales also shows an uptick, supporting the idea that a broad market recovery is
-                    beginning.
-                </p>
-                <div class="chart-container" style="height: 400px;">
-                    <canvas id="housingMarketChart"></canvas>
-                    <p class="text-center text-sm text-text-body mt-2">New (Blue, Left Axis) vs. Existing (Orange, Right
-                        Axis) Home Sales</p>
-                </div>
-            </section>
-
-            <section class="bg-card-bg rounded-lg shadow-lg p-6 md:p-8">
-                <h2 class="text-2xl md:text-3xl font-bold text-text-header mb-4">
-                    3. The Precedent: A History of Earnings Beats
-                </h2>
-                <p class="text-base md:text-lg text-text-body mb-6">
-                    Home Depot has a strong track record of beating earnings estimates and drifting higher
-                    post-announcement. Based on the past several quarters, the stock has shown a consistent positive
-                    reaction, with the notable exception of May's report. We expect this pattern to continue.
-                </p>
-                <div class="chart-container" style="height: 300px;">
-                    <canvas id="earningsChart"></canvas>
-                </div>
-            </section>
-
-            <section class="bg-card-bg rounded-lg shadow-lg p-6 md:p-8">
-                <h2 class="text-2xl md:text-3xl font-bold text-text-header mb-4">
-                    4. The Contrarian Signal: Sentiment Has Bottomed
-                </h2>
-                <p class="text-base md:text-lg text-text-body mb-6">
-                    Recent price weakness can be attributed to negative sentiment in the options market. As the stock
-                    price (blue line) fell, call volume (left) was quiet all week, with the exception of Nov 5th & 10th.
-                    In contrast, put volume (right) was extremely heavy and concentrated at lower strikes ($355 &
-                    $362.5), suggesting heavy bearish positioning and potential capitulation.
-                </p>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div class="chart-container">
-                        <div id="callVolumeHeatmap" class="w-full h-full"></div>
-                        <p class="text-center text-sm text-text-body mt-2">Call Volume Heatmap (by Strike)</p>
-                    </div>
-                    <div class="chart-container">
-                        <div id="putVolumeHeatmap" class="w-full h-full"></div>
-                        <p class="text-center text-sm text-text-body mt-2">Put Volume Heatmap (by Strike)</p>
+    <!-- SLIDE 1: INTRODUCTION -->
+    <div class="slide-container active" id="slide1">
+        <h2 class="slide-title">Why are markets crashing?</h2>
+        <div class="content-area">
+            <div class="content-grid">
+                <div>
+                    <h3>The Nov 20 Shock</h3>
+                    <p>Crypto has been bleeding for weeks, but <strong>November 20</strong> marked a structural break.
+                    </p>
+                    <div class="card" style="margin-top: 20px; height: auto;">
+                        <div class="stat-row">
+                            <span>NVIDIA Earnings</span>
+                            <span class="stat-val green">Strong Beat</span>
+                        </div>
+                        <div class="stat-row">
+                            <span>Nasdaq Reaction</span>
+                            <span class="stat-val red">-2.0% (Reversal)</span>
+                        </div>
+                        <div class="stat-row" style="border:none;">
+                            <span>Bitcoin</span>
+                            <span class="stat-val red">Crossed < $90k</span>
+                        </div>
                     </div>
                 </div>
-            </section>
-
-            <section class="bg-brand-hd rounded-lg shadow-xl p-6 md:p-8 text-center text-white">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                    The Trade Recommendation
-                </h2>
-                <p class="text-lg md:text-xl mb-6">
-                    Given the macro tailwind, historical earnings strength, and contrarian sentiment, we believe the
-                    stock has bottomed. We recommend buying call spreads to position for a post-earnings rally.
-                </p>
-                <div class="bg-white text-text-header rounded-lg p-6 max-w-md mx-auto">
-                    <div class="text-lg font-semibold text-text-body">Buy Call Spread</div>
-                    <div class="text-4xl font-bold text-brand-hd my-2">365 / 390</div>
-                    <div class="text-lg font-semibold text-text-body">Expiry: 11/28/25</div>
+                <div>
+                    <h3>The Trillion Dollar Question</h3>
+                    <p>Why is the Crypto market—a relatively small $2-3 Trillion asset class—crashing the entire global
+                        equity market when it goes down?</p>
                 </div>
-            </section>
+            </div>
+        </div>
+    </div>
 
-        </main>
+    <!-- SLIDE 2: MECHANICS I (FLASH COLLAPSE) -->
+    <div class="slide-container" id="slide2">
+        <h2 class="slide-title">Mechanics I: The "Flash" Collapse (Oct '25)</h2>
+        <div class="content-area">
+            <div class="content-grid">
+                <div>
+                    <h3>The Trigger Event</h3>
+                    <p>Mid-October: New <strong>US-China trade tensions</strong> (Rare Earth exports) caused a massive
+                        liquidity shock.</p>
+                    <div class="highlight-box">
+                        <p><strong>Market Depth Collapse:</strong> >80% of order book liquidity vanished across major
+                            exchanges within minutes.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3><i class="fa-solid fa-bolt"></i> Extreme Dislocation</h3>
+                    <p>With no buyers to absorb sell orders, prices entered freefall:</p>
+                    <ul>
+                        <li><strong>Bitcoin:</strong> Shed nearly <strong>$10,000</strong> in minutes.</li>
+                        <li><strong>Altcoins (Solana):</strong> Dropped <strong>40%</strong> almost instantly.</li>
+                    </ul>
+                    <p style="margin-top:15px; font-size: 18px; color: var(--accent-red);"><strong>Result:</strong> A
+                        structural breakage in price discovery mechanism.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 3: MECHANICS II (STRUCTURAL) -->
+    <div class="slide-container" id="slide3">
+        <h2 class="slide-title">Mechanics II: Structural Fragility (Nov '25)</h2>
+        <div class="content-area">
+            <div class="content-grid">
+                <div>
+                    <h3>The "Alameda Gap" 2.0</h3>
+                    <p>Liquidity never recovered. It stabilized at a significantly lower baseline (similar to post-FTX
+                        2022).</p>
+                    <div class="card" style="margin-top: 20px; height: auto; background: rgba(239, 68, 68, 0.05);">
+                        <div class="stat-row">
+                            <span>BTC 1% Depth</span>
+                            <span class="stat-val red">-33%</span>
+                        </div>
+                        <div class="stat-row" style="border:none;">
+                            <span>Total Market Depth</span>
+                            <span class="stat-val">$766M &rarr; $535M</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3><i class="fa-solid fa-house-crack"></i> Why It Matters Today</h3>
+                    <p><strong>Fragile Market:</strong> A 33% drop in depth means it takes 33% less capital to crash the
+                        price.</p>
+                    <div class="highlight-box orange">
+                        <p><strong>Nov 21 Status:</strong></p>
+                        <p>Thin liquidity + panic = <strong>$2 Billion</strong> liquidated in just 24 hours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 4: YEN CARRY TRADE -->
+    <div class="slide-container" id="slide4">
+        <h2 class="slide-title">The Potential Cause: Yen Carry Trade Unwind</h2>
+        <div class="content-area">
+            <div class="content-grid">
+                <div>
+                    <h3>The Dynamic</h3>
+                    <p>Japan's massive <strong>fiscal stimulus</strong> is pushing domestic bond yields higher (breaking
+                        1.7%).</p>
+                    <p><strong>The Flow:</strong> Investors are selling US Dollar assets (Tech stocks, Crypto) to
+                        repatriate capital back to Japan to earn these new, higher risk-free rates.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fa-solid fa-scale-unbalanced"></i> Magnitude vs. 2024</h3>
+                    <ul>
+                        <li><strong>Summer 2024:</strong> Triggered by a "surprise" policy rate hike (0.25%).
+                            Short-lived shock.</li>
+                        <li><strong>November 2025:</strong> Triggered by <strong>market forces</strong> (Yields rising
+                            naturally due to stimulus).</li>
+                        <li><strong>Impact:</strong> Larger, slower, and harder to stop because the Central Bank cannot
+                            simply "pause" market yields.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 5: LIQUIDITY DRAIN (UPDATED) -->
+    <div class="slide-container" id="slide5">
+        <h2 class="slide-title">The Liquidity Drain & Fed Panic</h2>
+        <div class="content-area">
+            <div class="content-grid">
+                <div>
+                    <h3>From Abundant to Ample... to Scarce?</h3>
+                    <p>The combination of the Carry Trade Unwind + Fed QT has drained reserves too far.</p>
+                    <div class="highlight-box">
+                        <p><strong>The Panic Signal:</strong> Powell announced the End of QT on Dec 1st. Originally
+                            planned for Spring 2026. This 15-month acceleration proves they see the system breaking.</p>
+                    </div>
+                    <!-- UPDATE 1: Dec 1st Bottom Signal -->
+                    <div class="highlight-box orange" style="margin-top: 15px;">
+                        <p style="font-size: 24px; color: var(--accent-orange);"><i
+                                class="fa-solid fa-flag-checkered"></i> <strong>QT Ends Dec 1st.</strong></p>
+                        <p style="font-size: 18px; margin-top: 5px;">This date could mark the bottom of the meltdown.
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <h3>Fed Repo Facility Usage (The Evidence)</h3>
+                    <div class="chart-area">
+                        <div class="bar-container">
+                            <div class="bar-label">Oct 1-31</div>
+                            <div class="bar-track">
+                                <div class="bar-fill" style="width: 1%;">~ $0 B</div>
+                            </div>
+                        </div>
+                        <div class="bar-container">
+                            <div class="bar-label">Nov 1-14</div>
+                            <div class="bar-track">
+                                <div class="bar-fill" style="width: 2%;">$0.2 B</div>
+                            </div>
+                        </div>
+                        <div class="bar-container">
+                            <div class="bar-label" style="color: #ef4444; font-weight:bold;">Nov 17</div>
+                            <div class="bar-track">
+                                <div class="bar-fill spike" style="width: 100%;">$4.76 B (Spike)</div>
+                            </div>
+                        </div>
+                        <div class="bar-container">
+                            <div class="bar-label">Nov 20</div>
+                            <div class="bar-track">
+                                <div class="bar-fill" style="width: 35%;">$1.5 B</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UPDATE 2: REPO EXPLANATION -->
+                    <div class="card"
+                        style="border: 1px solid var(--text-muted); background: rgba(255,255,255,0.03); padding: 20px;">
+                        <p style="font-size: 18px; margin-bottom: 5px; color: var(--accent-blue);"><strong>Why does the
+                                Repo Facility matter?</strong></p>
+                        <p style="font-size: 16px; line-height: 1.4; margin-bottom: 0;">If banks need cash but are
+                            reluctant to go to the repo facility (due to "stigma"), they won't lend to those who really
+                            need it—like <strong>Crypto Market Makers</strong>. This credit freeze feeds the selloff.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 6: FED MOVES -->
+    <div class="slide-container" id="slide6">
+        <h2 class="slide-title">The Fed Moves: The Pivot is Here</h2>
+        <div class="content-area">
+            <div class="content-grid">
+                <div class="card">
+                    <h3><i class="fa-solid fa-user-secret"></i> The Secret Meeting</h3>
+                    <p>Reports confirm NY Fed President <strong>John Williams</strong> met privately with Wall Street
+                        banks this week.</p>
+                    <p><strong>The Message:</strong> "Please forget the stigma. Use the Repo facility. We need the
+                        plumbing to work."</p>
+                </div>
+                <div class="card" style="border-color: var(--accent-blue);">
+                    <h3><i class="fa-solid fa-bullhorn"></i> The Williams Speech (Nov 21)</h3>
+                    <p>This morning, Williams explicitly stated policy is "restrictive" and supports an adjustment "in
+                        the near term."</p>
+                    <div class="highlight-box blue" style="margin-top: 20px;">
+                        <p><strong>Market Reaction:</strong><br>
+                            Pricing for a December Rate Cut jumped <strong>+25%</strong> immediately following these
+                            remarks.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 7: THE SPLIT & THE PAIR -->
+    <div class="slide-container" id="slide7">
+        <h2 class="slide-title">The FOMC Civil War & The "Power Pair"</h2>
+        <div class="content-area">
+            <div class="content-grid">
+                <div class="card">
+                    <h3><i class="fa-solid fa-gavel"></i> The December Vote Split</h3>
+                    <div class="voter-group">
+                        <div class="voter-group-title" style="color: var(--accent-green);">🟩 Doves (Cut Now)</div>
+                        <div class="voter-names">
+                            <span class="voter-tag dove">Miran</span>
+                            <span class="voter-tag dove">Waller</span>
+                            <span class="voter-tag dove">Williams</span>
+                        </div>
+                    </div>
+                    <div class="voter-group">
+                        <div class="voter-group-title" style="color: var(--accent-red);">🟥 Hawks (Hold)</div>
+                        <div class="voter-names">
+                            <span class="voter-tag hawk">Schmid</span>
+                            <span class="voter-tag hawk">Bowman</span>
+                            <span class="voter-tag hawk">Musalem</span>
+                            <span class="voter-tag hawk">Collins</span>
+                            <span class="voter-tag hawk">Jefferson</span>
+                        </div>
+                    </div>
+                    <div class="voter-group">
+                        <div class="voter-group-title" style="color: var(--accent-orange);">🟨 Swing (Undecided)</div>
+                        <div class="voter-names">
+                            <span class="voter-tag swing">Powell</span>
+                            <span class="voter-tag swing">Cook</span>
+                            <span class="voter-tag swing">Barr</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="border: 1px solid var(--accent-blue);">
+                    <h3><i class="fa-solid fa-handshake"></i> The Powell-Williams Pair</h3>
+                    <p>Why Williams' "Cut" signal guarantees Powell is on board.</p>
+
+                    <div class="lockstep-container">
+                        <div class="lockstep-stat">
+                            <h4>100%</h4>
+                            <span>Voting Alignment</span>
+                        </div>
+                        <i class="fa-solid fa-link lockstep-icon"></i>
+                        <div class="lockstep-stat">
+                            <h4>13+</h4>
+                            <span>Years Together</span>
+                        </div>
+                    </div>
+
+                    <ul>
+                        <li><strong>Zero Dissents:</strong> Williams (Vice Chair) has <strong>never</strong> voted
+                            against Powell (Chair).</li>
+                        <li><strong>The Implication:</strong> It is procedurally impossible for Williams to signal a cut
+                            without Powell's blessing.</li>
+                        <li><strong>The Flip:</strong> Williams' vote flips the "Swing" block (Powell/Cook/Barr),
+                            turning a 5-3 Hawk majority into a <strong>7-5 Cut majority</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide-container');
+        const totalSlides = slides.length;
+        const slideCounter = document.getElementById('slideCounter');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
 
-            function wrapLabel(label) {
-                const maxLen = 16;
-                if (label.length <= maxLen) return label;
-                const words = label.split(' ');
-                const lines = [];
-                let currentLine = '';
-                words.forEach(word => {
-                    if ((currentLine + ' ' + word).trim().length > maxLen) {
-                        lines.push(currentLine.trim());
-                        currentLine = word;
-                    } else {
-                        currentLine = (currentLine + ' ' + word).trim();
-                    }
-                });
-                lines.push(currentLine.trim());
-                return lines;
-            }
+        function updateButtons() {
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+            slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+        }
 
-            function tooltipTitleCallback(tooltipItems) {
-                const item = tooltipItems[0];
-                let label = item.chart.data.labels[item.dataIndex];
-                if (Array.isArray(label)) {
-                    return label.join(' ');
-                } else {
-                    return label;
-                }
-            }
+        function changeSlide(direction) {
+            // Hide current
+            slides[currentSlide].classList.remove('active');
 
-            const defaultChartOptions = {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        labels: { color: '#374151' }
-                    },
-                    tooltip: {
-                        callbacks: { title: tooltipTitleCallback }
-                    }
-                },
-                scales: {
-                    y: {
-                        ticks: { color: '#374151' },
-                        grid: { color: '#E5E7EB' }
-                    },
-                    x: {
-                        ticks: { color: '#374151' },
-                        grid: { display: false }
-                    }
-                },
-                interaction: {
-                    mode: 'index',
-                    intersect: false,
-                },
-            };
+            // Calculate next
+            currentSlide += direction;
 
-            // 1. HD vs SPY Chart (from vs_SPY.png)
-            const spyVsHdCtx = document.getElementById('spyVsHdChart').getContext('2d');
-            const dates = [
-                '2024-11-15', '2024-12-15', '2025-01-15', '2025-02-15', '2025-03-15', '2025-04-15',
-                '2025-05-15', '2025-06-15', '2025-07-15', '2025-08-15', '2025-09-15', '2025-10-15', '2025-11-14'
-            ];
-            const spyData = [100, 102, 103, 101, 100, 92, 98, 102, 105, 110, 114, 112, 116];
-            const hdData = [100, 101.5, 99, 97, 94, 88, 90, 92, 91, 100, 98, 93, 91];
+            // Bounds check
+            if (currentSlide < 0) currentSlide = 0;
+            if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
 
-            // Re-creating the chart based on the image's data
-            new Chart(spyVsHdCtx, {
-                type: 'line',
-                data: {
-                    labels: dates,
-                    datasets: [
-                        {
-                            label: 'SPY',
-                            data: spyData,
-                            borderColor: '#3B82F6',
-                            backgroundColor: 'transparent',
-                            tension: 0.1,
-                            pointRadius: 0,
-                        },
-                        {
-                            label: 'HD',
-                            data: hdData,
-                            borderColor: '#F97316',
-                            backgroundColor: 'transparent',
-                            tension: 0.1,
-                            pointRadius: 0,
-                        }
-                    ]
-                },
-                options: {
-                    ...defaultChartOptions,
-                    scales: {
-                        y: {
-                            ...defaultChartOptions.scales.y,
-                            title: { display: true, text: 'Normalized Price (start=100)', color: '#374151' }
-                        },
-                        x: {
-                            ...defaultChartOptions.scales.x,
-                            type: 'time',
-                            time: { unit: 'month' },
-                        }
-                    },
-                    plugins: {
-                        ...defaultChartOptions.plugins,
-                        tooltip: {
-                            ...defaultChartOptions.plugins.tooltip,
-                            callbacks: {
-                                title: (tooltipItems) => {
-                                    const date = new Date(tooltipItems[0].parsed.x);
-                                    return date.toLocaleDateString(undefined, { year: 'numeric', month: 'short' });
-                                }
-                            }
-                        }
-                    }
-                }
-            });
+            // Show next
+            slides[currentSlide].classList.add('active');
 
-            // 2. Combined Home Sales Chart (from new_home_sales.png and existing_home_sales.png)
-            const housingMarketCtx = document.getElementById('housingMarketChart').getContext('2d');
-            const housingDates = ['Oct 24', 'Nov 24', 'Dec 24', 'Jan 25', 'Feb 25', 'Mar 25', 'Apr 25', 'May 25', 'Jun 25', 'Jul 25', 'Aug 25', 'Sep 25'];
-            const newSalesData = [680, 650, 670, 680, 660, 620, 640, 680, 660, 650, 780, null]; // Aug is last data point
-            const existingSalesData = [4040, 4140, 4280, 4090, 4260, 4030, 4010, 4050, 3960, 4020, 4015, 4060]; // Sep is last data point
+            updateButtons();
+        }
 
-            new Chart(housingMarketCtx, {
-                type: 'bar',
-                data: {
-                    labels: housingDates,
-                    datasets: [
-                        {
-                            label: 'New Home Sales (Thousands)',
-                            data: newSalesData,
-                            backgroundColor: '#3B82F6',
-                            borderColor: '#3B82F6',
-                            yAxisID: 'y',
-                        },
-                        {
-                            label: 'Existing Home Sales (Thousands)',
-                            data: existingSalesData,
-                            type: 'bar',
-                            backgroundColor: '#F97316',
-                            borderColor: '#F97316',
-                            yAxisID: 'y1',
-                        }
-                    ]
-                },
-                options: {
-                    ...defaultChartOptions,
-                    scales: {
-                        y: {
-                            ...defaultChartOptions.scales.y,
-                            type: 'linear',
-                            position: 'left',
-                            title: { display: true, text: 'New Sales (Thousands)', color: '#3B82F6' },
-                            min: 600 // Adjust axis to start near data minimum
-                        },
-                        y1: {
-                            type: 'linear',
-                            position: 'right',
-                            title: { display: true, text: 'Existing Sales (Thousands)', color: '#F97316' },
-                            ticks: { color: '#F97316' },
-                            grid: { display: false }, // Hide grid lines for the second axis
-                            min: 3900 // Adjust axis to start near data minimum
-                        },
-                        x: { ...defaultChartOptions.scales.x }
-                    }
-                }
-            });
-
-            // 3. Earnings Chart (from earnings_reaction_timeshots.png)
-            const earningsCtx = document.getElementById('earningsChart').getContext('2d');
-            new Chart(earningsCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['20-Feb-24', '14-May-24', '13-Aug-24', '12-Nov-24', '25-Feb-25', '20-May-25', '19-Aug-25'],
-                    datasets: [{
-                        label: 'Post-Earnings Move (T+1 16:00)',
-                        data: [-0.3, 1.8, 2.5, 0.5, 2.8, -2.0, 1.2],
-                        backgroundColor: (context) => context.raw >= 0 ? '#16A34A' : '#DC2626',
-                    }]
-                },
-                options: {
-                    ...defaultChartOptions,
-                    plugins: {
-                        ...defaultChartOptions.plugins,
-                        legend: { display: false }
-                    },
-                    scales: {
-                        y: { ...defaultChartOptions.scales.y, title: { display: true, text: 'Percentage Move (%)', color: '#374151' } },
-                        x: { ...defaultChartOptions.scales.x }
-                    }
-                }
-            });
-
-            // 4. Options Chart - REPLACED with Plotly Heatmaps
-            const heatmapDates = ['2025-11-05', '2025-11-06', '2025-11-07', '2025-11-10', '2025-11-11', '2025-11-12', '2025-11-13', '2025-11-14'];
-            const heatmapStrikes = [347.5, 355, 360, 362.5, 365, 377.5, 385, 390, 392.5];
-            const priceData = [378, 370, 370, 372, 374, 370, 368, 365];
-
-            // Create 2D arrays for heatmap data, mapping strikes to indices
-            const strikeMap = new Map(heatmapStrikes.map((strike, i) => [strike, i]));
-            const zCall = Array(heatmapStrikes.length).fill(0).map(() => Array(heatmapDates.length).fill(0));
-            const zPut = Array(heatmapStrikes.length).fill(0).map(() => Array(heatmapDates.length).fill(0));
-
-            // Populate Call Data
-            zCall[strikeMap.get(392.5)][0] = 400; // Nov 5
-            zCall[strikeMap.get(385.0)][0] = 150; // Nov 5
-            zCall[strikeMap.get(377.5)][0] = 150; // Nov 5
-            zCall[strikeMap.get(385.0)][1] = 200; // Nov 6
-            zCall[strikeMap.get(377.5)][1] = 100; // Nov 6
-            zCall[strikeMap.get(385.0)][2] = 200; // Nov 7
-            zCall[strikeMap.get(377.5)][2] = 50;  // Nov 7
-            zCall[strikeMap.get(390.0)][3] = 400; // Nov 10
-            zCall[strikeMap.get(385.0)][3] = 50;  // Nov 10
-
-            // Populate Put Data
-            zPut[strikeMap.get(347.5)][0] = 100; // Nov 5
-            zPut[strikeMap.get(360.0)][0] = 100; // Nov 5
-            zPut[strikeMap.get(365.0)][1] = 150; // Nov 6
-            zPut[strikeMap.get(362.5)][2] = 100; // Nov 7
-            zPut[strikeMap.get(355.0)][3] = 250; // Nov 10 (200+ legend)
-            zPut[strikeMap.get(360.0)][3] = 150; // Nov 10
-            zPut[strikeMap.get(355.0)][4] = 250; // Nov 11 (200+ legend)
-            zPut[strikeMap.get(362.5)][4] = 100; // Nov 11
-            zPut[strikeMap.get(362.5)][5] = 150; // Nov 12
-            zPut[strikeMap.get(362.5)][6] = 100; // Nov 13
-            zPut[strikeMap.get(362.5)][7] = 150; // Nov 14
-            zPut[strikeMap.get(360.0)][7] = 100; // Nov 14
-
-            const baseLayout = {
-                autosize: true,
-                margin: { l: 50, r: 50, b: 50, t: 50, pad: 4 },
-                font: { family: 'Inter, sans-serif' },
-                xaxis: { type: 'category' },
-                yaxis: { title: 'Strike Price ($)', autorange: true },
-                yaxis2: {
-                    title: 'HD Price ($)',
-                    overlaying: 'y',
-                    side: 'right',
-                    autorange: true,
-                    showgrid: false,
-                    color: '#3B82F6'
-                },
-                legend: { x: 0, y: 1.1, orientation: 'h' }
-            };
-
-            const plotConfig = { responsive: true, displayModeBar: false };
-
-            // Create Call Heatmap
-            const callData = [
-                {
-                    z: zCall,
-                    x: heatmapDates.map(d => d.substring(5)), // Shorten date labels
-                    y: heatmapStrikes,
-                    type: 'heatmap',
-                    colorscale: [
-                        [0, '#F3F4F6'], // page-bg for zero
-                        [1, '#16A34A']  // brand-call
-                    ],
-                    showscale: false,
-                    name: 'Call Volume',
-                    hoverinfo: 'x+y+z'
-                },
-                {
-                    x: heatmapDates.map(d => d.substring(5)),
-                    y: priceData,
-                    type: 'scatter',
-                    mode: 'lines',
-                    line: { color: '#3B82F6' },
-                    yaxis: 'y2',
-                    name: 'HD Price',
-                    hoverinfo: 'x+y'
-                }
-            ];
-            const callLayout = { ...baseLayout, title: 'Call Volume' };
-            Plotly.newPlot('callVolumeHeatmap', callData, callLayout, plotConfig);
-
-            // Create Put Heatmap
-            const putData = [
-                {
-                    z: zPut,
-                    x: heatmapDates.map(d => d.substring(5)),
-                    y: heatmapStrikes,
-                    type: 'heatmap',
-                    colorscale: [
-                        [0, '#F3F4F6'], // page-bg for zero
-                        [1, '#DC2626']  // brand-put
-                    ],
-                    showscale: false,
-                    name: 'Put Volume',
-                    hoverinfo: 'x+y+z'
-                },
-                {
-                    x: heatmapDates.map(d => d.substring(5)),
-                    y: priceData,
-                    type: 'scatter',
-                    mode: 'lines',
-                    line: { color: '#3B82F6' },
-                    yaxis: 'y2',
-                    name: 'HD Price',
-                    hoverinfo: 'x+y'
-                }
-            ];
-            const putLayout = { ...baseLayout, title: 'Put Volume' };
-            Plotly.newPlot('putVolumeHeatmap', putData, putLayout, plotConfig);
-
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 'ArrowLeft') changeSlide(-1);
         });
+
+        // Init
+        updateButtons();
     </script>
+
 </body>
 
 </html>
