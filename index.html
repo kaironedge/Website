@@ -47,19 +47,44 @@
             position: relative;
         }
 
-        .flow-arrow::after {
-            content: '→';
-            position: absolute;
-            right: -25px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
-            font-size: 1.5rem;
-            font-weight: 300;
+        /* Arrow for desktop */
+        @media (min-width: 768px) {
+            .flow-arrow::after {
+                content: '→';
+                position: absolute;
+                right: -25px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #94a3b8;
+                font-size: 1.5rem;
+                font-weight: 300;
+            }
+
+            .flow-arrow:last-child::after {
+                content: '';
+            }
         }
 
-        .flow-arrow:last-child::after {
-            content: '';
+        /* Arrow for mobile (down) */
+        @media (max-width: 767px) {
+            .flow-arrow::after {
+                content: '↓';
+                position: absolute;
+                bottom: -25px;
+                left: 50%;
+                transform: translateX(-50%);
+                color: #94a3b8;
+                font-size: 1.5rem;
+                font-weight: 300;
+            }
+
+            .flow-arrow:last-child::after {
+                content: '';
+            }
+
+            .flow-arrow {
+                margin-bottom: 2rem;
+            }
         }
 
         /* Text selection color */
@@ -74,31 +99,32 @@
 
     <!-- Navigation Bar -->
     <div
-        class="w-full h-16 border-b border-slate-800 flex items-center justify-between px-8 bg-slate-950 z-50 shadow-sm">
+        class="w-full h-16 border-b border-slate-800 flex items-center justify-between px-4 md:px-8 bg-slate-950 z-50 shadow-sm shrink-0">
         <div class="flex items-center gap-3">
             <div class="w-2 h-8 bg-blue-500 rounded-sm"></div>
-            <div class="text-lg font-semibold tracking-tight text-slate-100">Market Intelligence</div>
+            <div class="text-sm md:text-lg font-semibold tracking-tight text-slate-100">Market Intel</div>
         </div>
-        <div class="text-sm text-slate-400 font-medium tracking-wide">WARSH / FED 2026 OUTLOOK</div>
+        <div class="hidden md:block text-sm text-slate-400 font-medium tracking-wide">WARSH / FED 2026</div>
         <div class="text-xs text-slate-500 font-mono">CONFIDENTIAL</div>
     </div>
 
-    <!-- Main Content Area -->
-    <div class="flex-1 relative flex items-center justify-center bg-slate-900 p-8">
+    <!-- Main Content Area (Scrollable) -->
+    <div class="flex-1 relative bg-slate-900 overflow-y-auto overflow-x-hidden">
 
         <!-- Slide 1: Title -->
-        <div id="slide-1" class="slide active flex-col items-center justify-center text-center max-w-5xl w-full h-full">
-            <div class="mb-8 p-6 rounded-2xl bg-slate-800 border border-slate-700 shadow-xl">
-                <i data-lucide="landmark" class="w-16 h-16 text-blue-400"></i>
+        <div id="slide-1"
+            class="slide active flex-col items-center justify-center text-center min-h-full p-6 md:p-8 max-w-5xl mx-auto">
+            <div class="mb-8 p-6 rounded-2xl bg-slate-800 border border-slate-700 shadow-xl mt-10 md:mt-0">
+                <i data-lucide="landmark" class="w-12 h-12 md:w-16 md:h-16 text-blue-400"></i>
             </div>
-            <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-white leading-tight">
-                What Kevin Warsh leading the Fed <br>could mean for markets
+            <h1 class="text-3xl md:text-6xl font-bold tracking-tight mb-6 text-white leading-tight">
+                What Kevin Warsh leading the Fed <br class="hidden md:block">could mean for markets
             </h1>
-            <h2 class="text-2xl text-blue-400 font-medium mb-12 tracking-wide">
+            <h2 class="text-xl md:text-2xl text-blue-400 font-medium mb-12 tracking-wide">
                 Ending Interest on Bank Excess Reserves
             </h2>
-            <div class="glass p-8 rounded-xl max-w-2xl mx-auto border-l-4 border-blue-500">
-                <p class="text-slate-300 text-base leading-relaxed text-left">
+            <div class="glass p-6 md:p-8 rounded-xl max-w-2xl mx-auto border-l-4 border-blue-500 mb-10">
+                <p class="text-slate-300 text-sm md:text-base leading-relaxed text-left">
                     This deck explores the structural shift from a regime of "abundant reserves" to one of "active
                     liquidity." We analyze how ending the subsidy on excess reserves could force trillions of dollars
                     into the private economy, creating a distinct set of market winners and losers.
@@ -107,17 +133,18 @@
         </div>
 
         <!-- Slide 2: Warsh's Philosophy -->
-        <div id="slide-2" class="slide flex-col items-center justify-center w-full max-w-6xl h-full">
-            <h3 class="text-3xl font-bold mb-10 text-white self-start border-b border-slate-700 pb-4 w-full">The Warsh
-                Doctrine: A Philosophy Check</h3>
+        <div id="slide-2" class="slide flex-col items-center justify-center min-h-full p-6 md:p-8 max-w-6xl mx-auto">
+            <h3
+                class="text-2xl md:text-3xl font-bold mb-6 md:mb-10 text-white self-start border-b border-slate-700 pb-4 w-full">
+                The Warsh Doctrine: A Philosophy Check</h3>
 
-            <div class="grid grid-cols-2 gap-8 w-full h-full max-h-[60vh]">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 w-full">
                 <!-- Column 1 -->
                 <div class="space-y-6">
                     <div class="glass p-6 rounded-lg">
                         <div class="flex items-center gap-3 mb-3">
-                            <i data-lucide="shield-alert" class="text-blue-400"></i>
-                            <h4 class="text-xl font-bold text-white">Institutional Humility</h4>
+                            <i data-lucide="shield-alert" class="text-blue-400 shrink-0"></i>
+                            <h4 class="text-lg md:text-xl font-bold text-white">Institutional Humility</h4>
                         </div>
                         <p class="text-slate-300 text-sm leading-relaxed">
                             Warsh believes the Fed has exceeded its mandate, becoming a "general purpose agency" for
@@ -127,8 +154,8 @@
                     </div>
                     <div class="glass p-6 rounded-lg">
                         <div class="flex items-center gap-3 mb-3">
-                            <i data-lucide="ban" class="text-red-400"></i>
-                            <h4 class="text-xl font-bold text-white">Anti-QE & Sound Money</h4>
+                            <i data-lucide="ban" class="text-red-400 shrink-0"></i>
+                            <h4 class="text-lg md:text-xl font-bold text-white">Anti-QE & Sound Money</h4>
                         </div>
                         <p class="text-slate-300 text-sm leading-relaxed">
                             A vocal critic of "infinite liquidity," Warsh views Quantitative Easing (QE) not as a
@@ -140,11 +167,11 @@
                 </div>
 
                 <!-- Column 2 -->
-                <div class="space-y-6">
+                <div class="space-y-6 pb-8 md:pb-0">
                     <div class="glass p-6 rounded-lg">
                         <div class="flex items-center gap-3 mb-3">
-                            <i data-lucide="scale" class="text-green-400"></i>
-                            <h4 class="text-xl font-bold text-white">Regulatory Pragmatism</h4>
+                            <i data-lucide="scale" class="text-green-400 shrink-0"></i>
+                            <h4 class="text-lg md:text-xl font-bold text-white">Regulatory Pragmatism</h4>
                         </div>
                         <p class="text-slate-300 text-sm leading-relaxed">
                             While hawkish on money, he is dovish on regulation. He opposes the "Basel III Endgame,"
@@ -155,8 +182,8 @@
                     </div>
                     <div class="glass p-6 rounded-lg border border-blue-500/30 bg-blue-500/5">
                         <div class="flex items-center gap-3 mb-3">
-                            <i data-lucide="zap" class="text-yellow-400"></i>
-                            <h4 class="text-xl font-bold text-white">The "Plumbing" Focus</h4>
+                            <i data-lucide="zap" class="text-yellow-400 shrink-0"></i>
+                            <h4 class="text-lg md:text-xl font-bold text-white">The "Plumbing" Focus</h4>
                         </div>
                         <p class="text-slate-300 text-sm leading-relaxed">
                             Most uniquely, Warsh focuses on the <strong>mechanics of money markets</strong>. He believes
@@ -169,34 +196,34 @@
         </div>
 
         <!-- Slide 3: The Status Quo -->
-        <div id="slide-3" class="slide flex-col items-center justify-center w-full max-w-6xl h-full">
-            <h3 class="text-3xl font-bold mb-8 text-white self-start border-b border-slate-700 pb-4 w-full">The Current
-                Problem: "Lazy Banking"</h3>
-            <div class="flex flex-col md:flex-row gap-12 items-start w-full">
+        <div id="slide-3" class="slide flex-col items-center justify-center min-h-full p-6 md:p-8 max-w-6xl mx-auto">
+            <h3 class="text-2xl md:text-3xl font-bold mb-8 text-white self-start border-b border-slate-700 pb-4 w-full">
+                The Current Problem: "Lazy Banking"</h3>
+            <div class="flex flex-col md:flex-row gap-8 md:gap-12 items-start w-full">
                 <!-- Visual -->
                 <div class="w-full md:w-5/12 flex flex-col items-center">
                     <div
-                        class="relative w-full h-80 border-2 border-slate-600 rounded-lg bg-slate-800 flex flex-col justify-end overflow-hidden shadow-inner">
+                        class="relative w-full h-64 md:h-80 border-2 border-slate-600 rounded-lg bg-slate-800 flex flex-col justify-end overflow-hidden shadow-inner">
                         <div class="absolute inset-0 bg-blue-900/20"></div>
                         <!-- Water Level -->
                         <div
                             class="w-full h-[85%] bg-blue-600/80 flex items-center justify-center text-white font-bold border-t border-blue-400 relative transition-all duration-1000">
                             <div class="text-center z-10">
-                                <span class="text-4xl drop-shadow-md block">$3.1 Trillion</span>
-                                <span class="text-sm font-light opacity-80">Idle Reserves</span>
+                                <span class="text-3xl md:text-4xl drop-shadow-md block">$3.1 Trillion</span>
+                                <span class="text-xs md:text-sm font-light opacity-80">Idle Reserves</span>
                             </div>
                         </div>
                     </div>
                     <div class="mt-6 w-full glass p-4 rounded text-center">
                         <p class="text-sm text-slate-400">Current Interest on Reserves (IOR)</p>
-                        <p class="text-2xl font-bold text-green-400">~4.50% APY</p>
+                        <p class="text-xl md:text-2xl font-bold text-green-400">~4.50% APY</p>
                         <p class="text-xs text-slate-500">Risk-Free Income for Banks</p>
                     </div>
                 </div>
                 <!-- Text -->
-                <div class="w-full md:w-7/12 space-y-6">
+                <div class="w-full md:w-7/12 space-y-6 pb-8">
                     <div class="glass p-6 rounded-lg border-l-4 border-slate-500">
-                        <h4 class="text-xl font-bold text-white mb-2">The "Floor System" Explained</h4>
+                        <h4 class="text-lg md:text-xl font-bold text-white mb-2">The "Floor System" Explained</h4>
                         <p class="text-slate-300 text-sm leading-7">
                             Since 2008, the Fed has operated a "Floor System." They flooded the banking system with cash
                             (QE). To keep interest rates from falling to zero due to this oversupply, the Fed pays banks
@@ -204,7 +231,7 @@
                         </p>
                     </div>
                     <div class="glass p-6 rounded-lg border-l-4 border-red-500">
-                        <h4 class="text-xl font-bold text-white mb-2">The Warsh Critique</h4>
+                        <h4 class="text-lg md:text-xl font-bold text-white mb-2">The Warsh Critique</h4>
                         <p class="text-slate-300 text-sm leading-7 mb-4">
                             Warsh argues this system has turned commercial banks into public utilities. Instead of doing
                             the hard work of underwriting loans to small businesses or corporations, banks simply park
@@ -221,13 +248,13 @@
         </div>
 
         <!-- Slide 4: The Pivot: Tiered Reserves Proposal (Aligned) -->
-        <div id="slide-4" class="slide flex-col items-center justify-center w-full max-w-6xl h-full">
-            <h3 class="text-3xl font-bold mb-8 text-white self-start border-b border-slate-700 pb-4 w-full">The Pivot:
-                Tiered Reserves Proposal</h3>
+        <div id="slide-4" class="slide flex-col items-center justify-center min-h-full p-6 md:p-8 max-w-6xl mx-auto">
+            <h3 class="text-2xl md:text-3xl font-bold mb-8 text-white self-start border-b border-slate-700 pb-4 w-full">
+                The Pivot: Tiered Reserves Proposal</h3>
 
-            <div class="flex gap-8 w-full">
+            <div class="flex flex-col md:flex-row gap-8 w-full">
                 <!-- Left: The Alignment (Trump & Housing) -->
-                <div class="w-2/5 space-y-6">
+                <div class="w-full md:w-2/5 space-y-6">
                     <div class="glass p-5 rounded-lg border-l-4 border-blue-400">
                         <h4 class="text-lg font-bold text-blue-400 mb-2">1. The "Shadow Rate Cut"</h4>
                         <p class="text-slate-300 text-sm leading-relaxed">
@@ -249,10 +276,10 @@
                 </div>
 
                 <!-- Right: The Buckets Visual -->
-                <div class="w-3/5 grid grid-cols-2 gap-6 items-center">
+                <div class="w-full md:w-3/5 grid grid-cols-1 md:grid-cols-2 gap-6 items-center pb-8">
                     <!-- Bucket 1: Required -->
                     <div
-                        class="glass p-8 rounded-xl flex flex-col items-center text-center opacity-60 grayscale h-64 justify-center">
+                        class="glass p-8 rounded-xl flex flex-col items-center text-center opacity-60 grayscale h-48 md:h-64 justify-center">
                         <div class="w-12 h-12 bg-slate-700 rounded-full flex items-center justify-center mb-4">
                             <i data-lucide="lock" class="w-6 h-6 text-slate-300"></i>
                         </div>
@@ -265,7 +292,7 @@
 
                     <!-- Bucket 2: Excess -->
                     <div
-                        class="glass p-8 rounded-xl flex flex-col items-center text-center border-2 border-blue-500 bg-blue-900/10 relative overflow-hidden h-72 justify-center shadow-lg shadow-blue-500/10">
+                        class="glass p-8 rounded-xl flex flex-col items-center text-center border-2 border-blue-500 bg-blue-900/10 relative overflow-hidden h-64 md:h-72 justify-center shadow-lg shadow-blue-500/10">
                         <div
                             class="absolute top-0 right-0 bg-blue-500 text-white text-[10px] px-2 py-1 font-bold rounded-bl uppercase tracking-wider">
                             Target Capital</div>
@@ -285,9 +312,10 @@
         </div>
 
         <!-- Slide 5: Private Sector QE -->
-        <div id="slide-5" class="slide flex-col items-center justify-center w-full max-w-6xl h-full">
-            <h3 class="text-3xl font-bold mb-12 text-white self-start border-b border-slate-700 pb-4 w-full">"Private
-                Sector QE": The Flow of Funds</h3>
+        <div id="slide-5" class="slide flex-col items-center justify-center min-h-full p-6 md:p-8 max-w-6xl mx-auto">
+            <h3
+                class="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-white self-start border-b border-slate-700 pb-4 w-full">
+                "Private Sector QE": The Flow of Funds</h3>
 
             <div class="glass p-6 rounded-lg mb-8 w-full">
                 <p class="text-slate-300 text-sm">
@@ -298,13 +326,14 @@
             </div>
 
             <!-- Flow Diagram -->
-            <div class="flex items-start justify-between w-full gap-4">
+            <div class="flex flex-col md:flex-row items-center md:items-start justify-between w-full gap-4 pb-10">
 
                 <!-- Step 1 -->
-                <div class="flex flex-col items-center flow-arrow w-1/4 group">
+                <div class="flex flex-col items-center flow-arrow w-full md:w-1/4 group">
                     <div
-                        class="w-24 h-24 bg-slate-800 border border-slate-600 rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:border-red-400 transition-colors">
-                        <i data-lucide="landmark" class="w-10 h-10 text-slate-400 group-hover:text-red-400"></i>
+                        class="w-20 h-20 md:w-24 md:h-24 bg-slate-800 border border-slate-600 rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:border-red-400 transition-colors">
+                        <i data-lucide="landmark"
+                            class="w-8 h-8 md:w-10 md:h-10 text-slate-400 group-hover:text-red-400"></i>
                     </div>
                     <h4 class="font-bold text-white">Banks</h4>
                     <p class="text-xs text-slate-400 text-center mt-2 leading-tight">Must dump 0% cash to find yield.
@@ -312,10 +341,10 @@
                 </div>
 
                 <!-- Step 2 -->
-                <div class="flex flex-col items-center flow-arrow w-1/4 group">
+                <div class="flex flex-col items-center flow-arrow w-full md:w-1/4 group">
                     <div
-                        class="w-24 h-24 bg-blue-900/20 border border-blue-500/50 rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:bg-blue-900/40 transition-colors">
-                        <span class="text-2xl font-bold text-blue-400">T-Bills</span>
+                        class="w-20 h-20 md:w-24 md:h-24 bg-blue-900/20 border border-blue-500/50 rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:bg-blue-900/40 transition-colors">
+                        <span class="text-xl md:text-2xl font-bold text-blue-400">T-Bills</span>
                     </div>
                     <h4 class="font-bold text-blue-400">Short-Term Debt</h4>
                     <p class="text-xs text-slate-400 text-center mt-2 leading-tight">Massive buying pressure crushes
@@ -323,10 +352,10 @@
                 </div>
 
                 <!-- Step 3 -->
-                <div class="flex flex-col items-center flow-arrow w-1/4 group">
+                <div class="flex flex-col items-center flow-arrow w-full md:w-1/4 group">
                     <div
-                        class="w-24 h-24 bg-purple-900/20 border border-purple-500/50 rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:bg-purple-900/40 transition-colors">
-                        <i data-lucide="building-2" class="w-10 h-10 text-purple-400"></i>
+                        class="w-20 h-20 md:w-24 md:h-24 bg-purple-900/20 border border-purple-500/50 rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:bg-purple-900/40 transition-colors">
+                        <i data-lucide="building-2" class="w-8 h-8 md:w-10 md:h-10 text-purple-400"></i>
                     </div>
                     <h4 class="font-bold text-purple-400">MBS & Bonds</h4>
                     <p class="text-xs text-slate-400 text-center mt-2 leading-tight">Capital forced further out the
@@ -334,10 +363,10 @@
                 </div>
 
                 <!-- Step 4 -->
-                <div class="flex flex-col items-center w-1/4 group">
+                <div class="flex flex-col items-center w-full md:w-1/4 group">
                     <div
-                        class="w-24 h-24 bg-green-900/20 border border-green-500/50 rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:bg-green-900/40 transition-colors">
-                        <i data-lucide="trending-up" class="w-10 h-10 text-green-400"></i>
+                        class="w-20 h-20 md:w-24 md:h-24 bg-green-900/20 border border-green-500/50 rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:bg-green-900/40 transition-colors">
+                        <i data-lucide="trending-up" class="w-8 h-8 md:w-10 md:h-10 text-green-400"></i>
                     </div>
                     <h4 class="font-bold text-green-400">Equities</h4>
                     <p class="text-xs text-slate-400 text-center mt-2 leading-tight">Nominal Asset Inflation as money
@@ -347,66 +376,78 @@
         </div>
 
         <!-- Slide 6: Winners & Losers -->
-        <div id="slide-6" class="slide flex-col items-center justify-center w-full max-w-6xl h-full">
-            <h3 class="text-3xl font-bold mb-10 text-white self-start border-b border-slate-700 pb-4 w-full">Market
-                Winners & Losers</h3>
+        <div id="slide-6" class="slide flex-col items-center justify-center min-h-full p-6 md:p-8 max-w-6xl mx-auto">
+            <h3
+                class="text-2xl md:text-3xl font-bold mb-8 md:mb-10 text-white self-start border-b border-slate-700 pb-4 w-full">
+                Market Winners & Losers</h3>
 
-            <div class="grid grid-cols-2 gap-8 w-full h-full">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full pb-8">
                 <!-- Winners -->
-                <div class="border border-green-500/20 bg-green-900/5 rounded-xl p-8 backdrop-blur-sm">
+                <div class="border border-green-500/20 bg-green-900/5 rounded-xl p-6 md:p-8 backdrop-blur-sm">
                     <div class="flex items-center gap-3 mb-6 border-b border-green-500/20 pb-4">
                         <div class="p-2 bg-green-500/10 rounded-lg">
                             <i data-lucide="thumbs-up" class="text-green-400"></i>
                         </div>
-                        <h4 class="text-2xl font-bold text-green-400">The Winners</h4>
+                        <h4 class="text-xl md:text-2xl font-bold text-green-400">The Winners</h4>
                     </div>
                     <ul class="space-y-6">
                         <li class="flex items-start gap-4">
-                            <span class="font-bold text-slate-200 min-w-[120px]">Homebuyers</span>
-                            <span class="text-slate-400 text-sm leading-snug"><strong>Why:</strong> The flow of funds
-                                into Mortgage-Backed Securities (MBS) drives mortgage rates down, improving
-                                affordability without direct subsidies.</span>
+                            <span
+                                class="font-bold text-slate-200 min-w-[100px] md:min-w-[120px] text-sm md:text-base">Homebuyers</span>
+                            <span class="text-slate-400 text-xs md:text-sm leading-snug"><strong>Why:</strong> The flow
+                                of funds into Mortgage-Backed Securities (MBS) drives mortgage rates down, improving
+                                affordability.</span>
                         </li>
                         <li class="flex items-start gap-4">
-                            <span class="font-bold text-slate-200 min-w-[120px]">US Treasury</span>
-                            <span class="text-slate-400 text-sm leading-snug"><strong>Why:</strong> Banks are forced
-                                buyers of T-Bills. This lowers the government's cost of borrowing significantly, which
-                                helps fund the deficit.</span>
+                            <span
+                                class="font-bold text-slate-200 min-w-[100px] md:min-w-[120px] text-sm md:text-base">US
+                                Treasury</span>
+                            <span class="text-slate-400 text-xs md:text-sm leading-snug"><strong>Why:</strong> Banks are
+                                forced buyers of T-Bills. This lowers the government's cost of borrowing
+                                significantly.</span>
                         </li>
                         <li class="flex items-start gap-4">
-                            <span class="font-bold text-slate-200 min-w-[120px]">Bitcoin/Gold</span>
-                            <span class="text-slate-400 text-sm leading-snug"><strong>Why:</strong> The "Shadow QE"
-                                effect. Increasing the velocity of dollars creates fears of debasement, driving demand
-                                for hard assets with fixed supply.</span>
+                            <span
+                                class="font-bold text-slate-200 min-w-[100px] md:min-w-[120px] text-sm md:text-base">Bitcoin/Gold</span>
+                            <span class="text-slate-400 text-xs md:text-sm leading-snug"><strong>Why:</strong>
+                                Increasing velocity of dollars creates fears of debasement, driving demand for hard
+                                assets.</span>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Losers -->
-                <div class="border border-red-500/20 bg-red-900/5 rounded-xl p-8 backdrop-blur-sm">
+                <div class="border border-red-500/20 bg-red-900/5 rounded-xl p-6 md:p-8 backdrop-blur-sm">
                     <div class="flex items-center gap-3 mb-6 border-b border-red-500/20 pb-4">
                         <div class="p-2 bg-red-500/10 rounded-lg">
                             <i data-lucide="thumbs-down" class="text-red-400"></i>
                         </div>
-                        <h4 class="text-2xl font-bold text-red-400">The Losers</h4>
+                        <h4 class="text-xl md:text-2xl font-bold text-red-400">The Losers</h4>
                     </div>
                     <ul class="space-y-6">
                         <li class="flex items-start gap-4">
-                            <span class="font-bold text-slate-200 min-w-[120px]">Big Banks</span>
-                            <span class="text-slate-400 text-sm leading-snug"><strong>Why:</strong> Money center banks
-                                (JPM, BAC) lose billions in easy NII (Net Interest Income). They must work harder for
-                                lower margins.</span>
+                            <span
+                                class="font-bold text-slate-200 min-w-[100px] md:min-w-[120px] text-sm md:text-base">Big
+                                Banks</span>
+                            <span class="text-slate-400 text-xs md:text-sm leading-snug"><strong>Why:</strong> Money
+                                center banks (JPM, BAC) lose billions in easy NII. They must work harder for lower
+                                margins.</span>
                         </li>
                         <li class="flex items-start gap-4">
-                            <span class="font-bold text-slate-200 min-w-[120px]">The Dollar</span>
-                            <span class="text-slate-400 text-sm leading-snug"><strong>Why:</strong> If US short-term
-                                yields crash (due to forced buying), the "Carry Trade" appeal of the USD diminishes for
-                                foreign investors.</span>
+                            <span
+                                class="font-bold text-slate-200 min-w-[100px] md:min-w-[120px] text-sm md:text-base">The
+                                Dollar</span>
+                            <span class="text-slate-400 text-xs md:text-sm leading-snug"><strong>Why:</strong> If US
+                                short-term yields crash, the "Carry Trade" appeal of the USD diminishes for foreign
+                                investors.</span>
                         </li>
                         <li class="flex items-start gap-4">
-                            <span class="font-bold text-slate-200 min-w-[120px]">Cash Savers</span>
-                            <span class="text-slate-400 text-sm leading-snug"><strong>Why:</strong> Money Market Funds
-                                will see their yields drop as the underlying T-Bill yields are compressed.</span>
+                            <span
+                                class="font-bold text-slate-200 min-w-[100px] md:min-w-[120px] text-sm md:text-base">Cash
+                                Savers</span>
+                            <span class="text-slate-400 text-xs md:text-sm leading-snug"><strong>Why:</strong> Money
+                                Market Funds will see their yields drop as the underlying T-Bill yields are
+                                compressed.</span>
                         </li>
                     </ul>
                 </div>
@@ -414,16 +455,16 @@
         </div>
 
         <!-- Slide 7: The Dollar & Bitcoin -->
-        <div id="slide-7" class="slide flex-col items-center justify-center w-full max-w-6xl h-full">
-            <h3 class="text-3xl font-bold mb-8 text-white self-start border-b border-slate-700 pb-4 w-full">Deep Dive:
-                Currency & Digital Assets</h3>
+        <div id="slide-7" class="slide flex-col items-center justify-center min-h-full p-6 md:p-8 max-w-6xl mx-auto">
+            <h3 class="text-2xl md:text-3xl font-bold mb-8 text-white self-start border-b border-slate-700 pb-4 w-full">
+                Deep Dive: Currency & Digital Assets</h3>
 
-            <div class="flex w-full h-full gap-8">
+            <div class="flex flex-col md:flex-row w-full gap-8 pb-10">
 
                 <!-- Dollar Section -->
-                <div class="w-1/2 flex flex-col p-6 rounded-xl border border-red-500/20 bg-red-900/5">
+                <div class="w-full md:w-1/2 flex flex-col p-6 rounded-xl border border-red-500/20 bg-red-900/5">
                     <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-2xl font-bold text-red-400">The Dollar: Stealth Devaluation</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-red-400">The Dollar: Stealth Devaluation</h3>
                         <i data-lucide="trending-down" class="w-8 h-8 text-red-500"></i>
                     </div>
 
@@ -445,9 +486,9 @@
                 </div>
 
                 <!-- Bitcoin Section -->
-                <div class="w-1/2 flex flex-col p-6 rounded-xl border border-orange-500/20 bg-orange-900/5">
+                <div class="w-full md:w-1/2 flex flex-col p-6 rounded-xl border border-orange-500/20 bg-orange-900/5">
                     <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-2xl font-bold text-orange-400">Bitcoin: The "Perfect Storm"</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-orange-400">Bitcoin: The "Perfect Storm"</h3>
                         <i data-lucide="bitcoin" class="w-8 h-8 text-orange-500"></i>
                     </div>
 
@@ -482,18 +523,19 @@
     </div>
 
     <!-- Controls -->
-    <div class="h-20 bg-slate-950 flex items-center justify-between px-12 border-t border-slate-800 z-50">
+    <div
+        class="h-20 bg-slate-950 flex items-center justify-between px-4 md:px-12 border-t border-slate-800 z-50 shrink-0">
         <button onclick="prevSlide()"
-            class="flex items-center gap-2 px-6 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-all font-medium border border-slate-700">
-            <i data-lucide="arrow-left" class="w-4 h-4"></i> Previous
+            class="flex items-center gap-2 px-4 md:px-6 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-all font-medium border border-slate-700 text-sm md:text-base">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i> Prev
         </button>
 
-        <div class="flex gap-3" id="indicators">
+        <div class="flex gap-2 md:gap-3" id="indicators">
             <!-- Indicators injected by JS -->
         </div>
 
         <button onclick="nextSlide()"
-            class="flex items-center gap-2 px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white transition-all font-medium shadow-lg shadow-blue-900/20">
+            class="flex items-center gap-2 px-4 md:px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white transition-all font-medium shadow-lg shadow-blue-900/20 text-sm md:text-base">
             Next <i data-lucide="arrow-right" class="w-4 h-4"></i>
         </button>
     </div>
@@ -503,6 +545,7 @@
 
         let currentSlide = 1;
         const totalSlides = 7;
+        const mainContainer = document.querySelector('.overflow-y-auto');
 
         function updateSlide() {
             // Hide all
@@ -517,10 +560,13 @@
             indicators.innerHTML = '';
             for (let i = 1; i <= totalSlides; i++) {
                 const dot = document.createElement('div');
-                dot.className = `h-2 rounded-full transition-all duration-300 cursor-pointer ${i === currentSlide ? 'bg-blue-500 w-8' : 'bg-slate-700 w-2 hover:bg-slate-600'}`;
+                dot.className = `h-2 rounded-full transition-all duration-300 cursor-pointer ${i === currentSlide ? 'bg-blue-500 w-6 md:w-8' : 'bg-slate-700 w-2 hover:bg-slate-600'}`;
                 dot.onclick = () => { currentSlide = i; updateSlide(); };
                 indicators.appendChild(dot);
             }
+
+            // Reset Scroll
+            if (mainContainer) mainContainer.scrollTop = 0;
         }
 
         function nextSlide() {
@@ -549,4 +595,3 @@
 </body>
 
 </html>
-```
