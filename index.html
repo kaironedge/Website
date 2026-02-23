@@ -1,621 +1,728 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Warsh Pivot: Market Impact Deck</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Netflix Exit Play — An Investment Thesis</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --paper: #f5f0e8;
+    --accent: #c0392b;
+    --accent-dark: #922b21;
+    --muted: #7d7a72;
+    --border: #d4cfc4;
+    --highlight: #fef3cd;
+    --card-bg: #fffdf7;
+    --section-bg: #eee9df;
+    --netflix-red: #e50914;
+    --paramount-blue: #0064ff;
+    --wbd-purple: #6c3483;
+    --green: #27ae60;
+    --warning: #e67e22;
+  }
 
-        /* FIX: Use 100dvh to account for mobile browser address bars */
-        body {
-            font-family: 'Inter', sans-serif;
-            height: 100vh;
-            /* Fallback */
-            height: 100dvh;
-            /* Key fix for Mobile Safari/Chrome */
-        }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        .slide {
-            display: none;
-        }
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
 
-        .slide.active {
-            display: flex;
-            animation: fadeIn 0.4s ease-out;
-        }
+  /* Masthead */
+  .masthead {
+    border-bottom: 3px double var(--ink);
+    padding: 2rem 0 1.5rem;
+    text-align: center;
+    background: var(--paper);
+  }
+  .masthead-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .masthead .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .masthead h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .masthead .subtitle {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 650px;
+    margin: 0.75rem auto 0;
+    font-weight: 300;
+  }
+  .masthead .dateline {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: 1.25rem;
+    letter-spacing: 0.1em;
+  }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(5px);
-            }
+  .disclaimer-bar {
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    padding: 0.6rem 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+  /* Main content */
+  .content {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 4rem;
+  }
 
-        /* Professional Neutral Glass Effect */
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
+  .section {
+    margin-bottom: 3rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-child { border-bottom: none; }
 
-        .flow-arrow {
-            position: relative;
-        }
+  .section-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.05em;
+  }
 
-        /* Arrow for desktop */
-        @media (min-width: 768px) {
-            .flow-arrow::after {
-                content: '→';
-                position: absolute;
-                right: -25px;
-                top: 50%;
-                transform: translateY(-50%);
-                color: #94a3b8;
-                font-size: 1.5rem;
-                font-weight: 300;
-            }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.65rem;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.01em;
+  }
 
-            .flow-arrow:last-child::after {
-                content: '';
-            }
-        }
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+    color: var(--ink);
+  }
 
-        /* Arrow for mobile (down) */
-        @media (max-width: 767px) {
-            .flow-arrow::after {
-                content: '↓';
-                position: absolute;
-                bottom: -25px;
-                left: 50%;
-                transform: translateX(-50%);
-                color: #94a3b8;
-                font-size: 1.5rem;
-                font-weight: 300;
-            }
+  p {
+    margin-bottom: 1rem;
+  }
 
-            .flow-arrow:last-child::after {
-                content: '';
-            }
+  .lead {
+    font-size: 1.15rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: #333;
+  }
 
-            .flow-arrow {
-                margin-bottom: 2rem;
-            }
-        }
+  .dropcap::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.8rem;
+    font-weight: 900;
+    float: left;
+    line-height: 0.8;
+    margin: 0.1em 0.12em 0 0;
+    color: var(--accent);
+  }
 
-        /* Text selection color */
-        ::selection {
-            background: #3b82f6;
-            color: white;
-        }
+  strong { font-weight: 600; }
 
-        /* Scrollbar styling */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
+  /* Thesis card */
+  .thesis-card {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2rem 2.25rem;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .thesis-card::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 12rem;
+    position: absolute;
+    top: -2.5rem;
+    right: 1rem;
+    opacity: 0.06;
+    line-height: 1;
+  }
+  .thesis-card .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .thesis-card p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
 
-        ::-webkit-scrollbar-track {
-            background: #0f172a;
-        }
+  /* Deal comparison table */
+  .deal-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.75rem 0;
+    font-size: 0.92rem;
+  }
+  .deal-table th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid var(--ink);
+    color: var(--muted);
+  }
+  .deal-table td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .deal-table tr:last-child td { border-bottom: none; }
+  .deal-table .label-col {
+    font-weight: 600;
+    width: 30%;
+    font-size: 0.85rem;
+  }
+  .netflix-col { color: var(--netflix-red); font-weight: 600; }
+  .paramount-col { color: var(--paramount-blue); font-weight: 600; }
 
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 3px;
-        }
+  /* Timeline */
+  .timeline {
+    margin: 1.75rem 0;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--accent);
+  }
+  .timeline-item {
+    position: relative;
+    padding: 0 0 1.5rem 1.25rem;
+  }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-item::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: absolute;
+    left: -1.85rem;
+    top: 0.4rem;
+  }
+  .timeline-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+  .timeline-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
-        }
-    </style>
+  /* Player profiles */
+  .player-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 600px) {
+    .player-grid { grid-template-columns: 1fr; }
+  }
+  .player-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.25rem;
+  }
+  .player-card .name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.15rem;
+  }
+  .player-card .role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.65rem;
+  }
+  .player-card .detail {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: #444;
+  }
+
+  /* Callout box */
+  .callout {
+    background: var(--highlight);
+    border-left: 3px solid var(--warning);
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+  .callout .callout-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--warning);
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+  }
+
+  .evidence-box {
+    background: var(--section-bg);
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 0.92rem;
+  }
+  .evidence-box .ev-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  /* Scenario blocks */
+  .scenario-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 600px) {
+    .scenario-grid { grid-template-columns: 1fr; }
+  }
+  .scenario {
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+  }
+  .scenario.bullish { border-left: 3px solid var(--green); }
+  .scenario.bearish { border-left: 3px solid var(--accent); }
+  .scenario .scenario-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .scenario.bullish .scenario-label { color: var(--green); }
+  .scenario.bearish .scenario-label { color: var(--accent); }
+  .scenario p { font-size: 0.88rem; line-height: 1.55; margin-bottom: 0.5rem; }
+  .scenario p:last-child { margin-bottom: 0; }
+
+  /* Flow diagram */
+  .flow {
+    margin: 1.75rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: center;
+  }
+  .flow-step {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 0.85rem 1.5rem;
+    text-align: center;
+    font-size: 0.88rem;
+    width: 100%;
+    max-width: 520px;
+  }
+  .flow-arrow {
+    font-size: 1.2rem;
+    color: var(--accent);
+    line-height: 1;
+    padding: 0.25rem 0;
+  }
+  .flow-step.highlight-step {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 3px double var(--ink);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .separator {
+    text-align: center;
+    margin: 2rem 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--border);
+    letter-spacing: 0.5em;
+  }
+
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+  }
+
+  .red { color: var(--netflix-red); }
+  .blue { color: var(--paramount-blue); }
+  .green { color: var(--green); }
+</style>
 </head>
+<body>
 
-<body class="bg-slate-900 text-slate-100 overflow-hidden flex flex-col">
+<div class="disclaimer-bar">
+  ⚠ Speculative Investment Thesis — Not Financial Advice — For Discussion Purposes Only ⚠
+</div>
 
-    <!-- Navigation Bar -->
-    <div
-        class="w-full h-14 md:h-16 border-b border-slate-800 flex items-center justify-between px-4 md:px-8 bg-slate-950 z-50 shadow-sm shrink-0">
-        <div class="flex items-center gap-3">
-            <div class="w-2 h-6 md:h-8 bg-blue-500 rounded-sm"></div>
-            <div class="text-sm md:text-lg font-semibold tracking-tight text-slate-100">Market Intel</div>
-        </div>
-        <div class="hidden md:block text-sm text-slate-400 font-medium tracking-wide">WARSH / FED 2026</div>
-        <div class="text-[10px] md:text-xs text-slate-500 font-mono">CONFIDENTIAL</div>
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="kicker">Merger Arbitrage Analysis · February 2026</div>
+    <h1>The Netflix Exit Play</h1>
+    <p class="subtitle">Did Susan Rice's inflammatory remarks hand Netflix a $2.8 billion golden parachute and the perfect excuse to walk away from Warner Bros. Discovery?</p>
+    <div class="dateline">Compiled February 23, 2026 — The day Paramount's "best and final" offer is due</div>
+  </div>
+</header>
+
+<main class="content">
+
+  <!-- SECTION 1: THE THESIS -->
+  <section class="section">
+    <span class="section-number">I.</span>
+    <h2>The Core Thesis</h2>
+    <p class="lead dropcap">Netflix's stock has been punished since it announced its bid to acquire Warner Bros. Discovery for $82.7 billion in December 2025. The market never liked this deal. Meanwhile, Paramount Skydance has been waging a hostile campaign to buy all of WBD at a higher per-share price. The thesis: Netflix may be engineering the conditions for its own deal to fail — and profiting handsomely from the collapse.</p>
+
+    <div class="thesis-card">
+      <span class="label">Central Question</span>
+      <p>Could Susan Rice's provocative podcast comments — made at the most sensitive possible moment in the WBD bidding process — be part of a broader dynamic (whether orchestrated or tolerated) that gives Netflix political cover to walk away, collect a $2.8 billion breakup fee, and regain shareholder value?</p>
+    </div>
+  </section>
+
+  <!-- SECTION 2: THE DEAL LANDSCAPE -->
+  <section class="section">
+    <span class="section-number">II.</span>
+    <h2>The Deal Landscape</h2>
+    <p>Two companies are fighting for control of Warner Bros. Discovery's crown jewels: Warner Bros. studios, DC Studios, HBO, and HBO Max. Here's how the offers compare.</p>
+
+    <table class="deal-table">
+      <thead>
+        <tr>
+          <th>Term</th>
+          <th>Netflix</th>
+          <th>Paramount Skydance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label-col">Per Share Price</td>
+          <td class="netflix-col">$27.75</td>
+          <td class="paramount-col">~$32 (expected)</td>
+        </tr>
+        <tr>
+          <td class="label-col">Total Deal Value</td>
+          <td>~$82.7B (studios + streaming only)</td>
+          <td>~$108B+ (entire company)</td>
+        </tr>
+        <tr>
+          <td class="label-col">Structure</td>
+          <td>All-cash; excludes cable networks (spun off as Discovery Global)</td>
+          <td>All-cash; acquires entire WBD including CNN, linear networks</td>
+        </tr>
+        <tr>
+          <td class="label-col">Breakup Fee</td>
+          <td>$2.8B payable to Netflix if WBD walks</td>
+          <td>Paramount pledges to cover the $2.8B fee</td>
+        </tr>
+        <tr>
+          <td class="label-col">Reverse Termination</td>
+          <td>$5.8B if Netflix can't close</td>
+          <td>$5.8B reverse termination fee</td>
+        </tr>
+        <tr>
+          <td class="label-col">WBD Board Stance</td>
+          <td>Unanimously recommended</td>
+          <td>Rejected multiple times; now in 7-day talks</td>
+        </tr>
+        <tr>
+          <td class="label-col">Trump Admin Posture</td>
+          <td>Hostile (DOJ probe; Trump demands Rice firing)</td>
+          <td>Favorable (Ellison ties; Delrahim as CLO)</td>
+        </tr>
+        <tr>
+          <td class="label-col">Regulatory Status</td>
+          <td>Still responding to DOJ second request</td>
+          <td>HSR waiting period expired Feb 19</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <div class="callout-label">Key Detail</div>
+      <p>Netflix retains <strong>matching rights</strong> — if the WBD board deems Paramount's offer superior, Netflix has <strong>4 business days</strong> to match or walk away. MoffettNathanson analysts expect Netflix to walk if Paramount bids well beyond $32/share.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 3: THE CATALYST -->
+  <section class="section">
+    <span class="section-number">III.</span>
+    <h2>The Catalyst: Susan Rice's Podcast</h2>
+
+    <h3>What She Said</h3>
+    <p>On Thursday, February 19, Netflix board member Susan Rice appeared on Preet Bharara's "Stay Tuned with Preet" podcast. She warned that corporations that "take a knee" to Trump will face an "accountability agenda" when Democrats return to power, stating this would not be an instance of "forgive and forget."</p>
+
+    <h3>The Chain Reaction</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="timeline-date">Thu, Feb 19</span>
+        <span class="timeline-text">Rice's podcast airs. She warns of Democratic "accountability agenda" against Trump-aligned corporations.</span>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">Sat, Feb 21</span>
+        <span class="timeline-text">Trump posts on Truth Social demanding Netflix fire Rice "IMMEDIATELY" or "pay the consequences." Laura Loomer urges Trump to "kill" the Netflix-WBD merger.</span>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">Sun, Feb 23</span>
+        <span class="timeline-text">Paramount's 7-day window to submit its "best and final" offer expires at 11:59 PM ET. Reports indicate a $32/share bid is coming.</span>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">~Feb 27</span>
+        <span class="timeline-text">Netflix's 4-day matching period would expire. Decision to match or walk away.</span>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">Mar 20</span>
+        <span class="timeline-date">WBD shareholder vote on the Netflix merger (if still active).</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: THE KEY PLAYERS -->
+  <section class="section">
+    <span class="section-number">IV.</span>
+    <h2>The Key Players & Their Connections</h2>
+
+    <div class="player-grid">
+      <div class="player-card">
+        <div class="name">Susan Rice</div>
+        <div class="role">Netflix Board Member</div>
+        <div class="detail">Former National Security Advisor (Obama), Domestic Policy Advisor (Biden), UN Ambassador. Rhodes Scholar. Known for blunt, combative style — diplomats called her "rude" and "overly blunt." Has been on Netflix's board since 2018 (with a break for Biden admin service). Deeply embedded in Democratic political networks.</div>
+      </div>
+      <div class="player-card">
+        <div class="name">Ted Sarandos</div>
+        <div class="role">Netflix Co-CEO</div>
+        <div class="detail">Built career from video store clerk to running Netflix. Lifelong Democrat — 18 political donations exclusively to Democratic candidates. His wife, Nicole Avant, was Obama's Ambassador to the Bahamas. The couple bundled $500K+ for Obama. Yet Sarandos visited Trump in the White House on Nov 24 to discuss the WBD deal. Trump called him "fantastic."</div>
+      </div>
+      <div class="player-card">
+        <div class="name">David Ellison</div>
+        <div class="role">Paramount Skydance CEO</div>
+        <div class="detail">Son of Oracle founder Larry Ellison, a close Trump ally. Leads Paramount's hostile bid for WBD. Has direct access to Trump's inner circle. Paramount's CLO is Makan Delrahim — Trump's former DOJ Antitrust Division chief.</div>
+      </div>
+      <div class="player-card">
+        <div class="name">David Zaslav</div>
+        <div class="role">WBD President & CEO</div>
+        <div class="detail">Leading WBD's strategic review. Board has unanimously backed Netflix deal but opened 7-day window for Paramount. Must maximize shareholder value while navigating political crossfire from both sides.</div>
+      </div>
     </div>
 
-    <!-- Main Content Area (Scrollable) -->
-    <div class="flex-1 relative bg-slate-900 overflow-y-auto overflow-x-hidden">
+    <div class="evidence-box">
+      <div class="ev-label">The Obama Connection</div>
+      <p>Rice, Sarandos, and Avant all orbit the same Obama-era political network. Netflix has a multi-year production deal with Barack and Michelle Obama's Higher Ground Productions. Conservative critics, including Laura Loomer, have framed the Netflix-WBD merger as extending "Obama's influence" over media. This political framing is actively being weaponized against the deal's regulatory prospects.</p>
+    </div>
+  </section>
 
-        <!-- Slide 1: Title -->
-        <div id="slide-1"
-            class="slide active flex-col items-center justify-center text-center min-h-full p-6 md:p-8 max-w-5xl mx-auto">
-            <div class="mb-8 p-6 rounded-2xl bg-slate-800 border border-slate-700 shadow-xl mt-4 md:mt-0">
-                <i data-lucide="landmark" class="w-12 h-12 md:w-16 md:h-16 text-blue-400"></i>
-            </div>
-            <h1 class="text-3xl md:text-6xl font-bold tracking-tight mb-6 text-white leading-tight">
-                What Kevin Warsh leading the Fed <br class="hidden md:block">could mean for markets
-            </h1>
-            <h2 class="text-xl md:text-2xl text-blue-400 font-medium mb-12 tracking-wide">
-                Ending Interest on Bank Excess Reserves
-            </h2>
-            <div class="glass p-6 md:p-8 rounded-xl max-w-2xl mx-auto border-l-4 border-blue-500 mb-10">
-                <p class="text-slate-300 text-sm md:text-base leading-relaxed text-left">
-                    This deck explores the structural shift from a regime of "abundant reserves" to one of "active
-                    liquidity." We analyze how ending the subsidy on excess reserves could force trillions of dollars
-                    into the private economy, creating a distinct set of market winners and losers.
-                </p>
-            </div>
-        </div>
+  <!-- SECTION 5: THE THEORY -->
+  <section class="section">
+    <span class="section-number">V.</span>
+    <h2>The Theory: Strategic Inaction</h2>
 
-        <!-- Slide 2: Warsh's Philosophy -->
-        <div id="slide-2" class="slide flex-col items-center justify-center min-h-full p-6 md:p-8 max-w-6xl mx-auto">
-            <h3
-                class="text-2xl md:text-3xl font-bold mb-6 md:mb-10 text-white self-start border-b border-slate-700 pb-4 w-full">
-                The Warsh Doctrine: A Philosophy Check</h3>
+    <p>The strongest version of this thesis is not that Rice's comments were a coordinated sabotage scheme — the legal risks of active conspiracy would be enormous. Rather, it is a theory of <strong>strategic inaction</strong>.</p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 w-full">
-                <!-- Column 1 -->
-                <div class="space-y-6">
-                    <div class="glass p-6 rounded-lg">
-                        <div class="flex items-center gap-3 mb-3">
-                            <i data-lucide="shield-alert" class="text-blue-400 shrink-0"></i>
-                            <h4 class="text-lg md:text-xl font-bold text-white">Institutional Humility</h4>
-                        </div>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Warsh believes the Fed has exceeded its mandate, becoming a "general purpose agency" for
-                            fixing economic problems. He advocates for a <strong>narrower, more focused Fed</strong>
-                            that stays out of fiscal policy and partisan politics.
-                        </p>
-                    </div>
-                    <div class="glass p-6 rounded-lg">
-                        <div class="flex items-center gap-3 mb-3">
-                            <i data-lucide="ban" class="text-red-400 shrink-0"></i>
-                            <h4 class="text-lg md:text-xl font-bold text-white">Anti-QE & Sound Money</h4>
-                        </div>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            A vocal critic of "infinite liquidity," Warsh views Quantitative Easing (QE) not as a
-                            permanent tool, but as an emergency measure that distorts asset prices and widens
-                            inequality. He favors <strong>positive real interest rates</strong> to discipline capital
-                            allocation.
-                        </p>
-                    </div>
-                </div>
+    <p>Sarandos is a shrewd operator who built his career on calculated bets. He knows who Susan Rice is. He knows what she's likely to say on a podcast with Preet Bharara. He knows the WBD deal is increasingly problematic for Netflix's stock and faces mounting regulatory headwinds from a Trump DOJ.</p>
 
-                <!-- Column 2 -->
-                <div class="space-y-6 pb-8 md:pb-0">
-                    <div class="glass p-6 rounded-lg">
-                        <div class="flex items-center gap-3 mb-3">
-                            <i data-lucide="scale" class="text-green-400 shrink-0"></i>
-                            <h4 class="text-lg md:text-xl font-bold text-white">Regulatory Pragmatism</h4>
-                        </div>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            While hawkish on money, he is dovish on regulation. He opposes the "Basel III Endgame,"
-                            arguing that excessive capital requirements stifle lending. He prefers <strong>simpler
-                                rules</strong> that encourage banks to lend to the real economy rather than hoard
-                            capital.
-                        </p>
-                    </div>
-                    <div class="glass p-6 rounded-lg border border-blue-500/30 bg-blue-500/5">
-                        <div class="flex items-center gap-3 mb-3">
-                            <i data-lucide="zap" class="text-yellow-400 shrink-0"></i>
-                            <h4 class="text-lg md:text-xl font-bold text-white">The "Plumbing" Focus</h4>
-                        </div>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Most uniquely, Warsh focuses on the <strong>mechanics of money markets</strong>. He believes
-                            the current system—where the Fed pays banks to hold cash—is fundamentally broken and
-                            discourages the very risk-taking required for economic growth.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <p>If he wanted to create conditions where WBD might choose Paramount instead — triggering the breakup fee and relieving the stock — he wouldn't need to orchestrate anything. He'd simply need to <strong>not prevent</strong> Rice from being Rice. No phone call saying "Susan, please be careful right now." No board-level guidance about the sensitivity of the regulatory moment.</p>
 
-        <!-- Slide 3: The Status Quo -->
-        <div id="slide-3" class="slide flex-col items-center justify-center min-h-full p-6 md:p-8 max-w-6xl mx-auto">
-            <h3 class="text-2xl md:text-3xl font-bold mb-8 text-white self-start border-b border-slate-700 pb-4 w-full">
-                The Current Problem: "Lazy Banking"</h3>
-            <div class="flex flex-col md:flex-row gap-8 md:gap-12 items-start w-full">
-                <!-- Visual -->
-                <div class="w-full md:w-5/12 flex flex-col items-center">
-                    <div
-                        class="relative w-full h-64 md:h-80 border-2 border-slate-600 rounded-lg bg-slate-800 flex flex-col justify-end overflow-hidden shadow-inner">
-                        <div class="absolute inset-0 bg-blue-900/20"></div>
-                        <!-- Water Level -->
-                        <div
-                            class="w-full h-[85%] bg-blue-600/80 flex items-center justify-center text-white font-bold border-t border-blue-400 relative transition-all duration-1000">
-                            <div class="text-center z-10">
-                                <span class="text-3xl md:text-4xl drop-shadow-md block">$3.1 Trillion</span>
-                                <span class="text-xs md:text-sm font-light opacity-80">Idle Reserves</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-6 w-full glass p-4 rounded text-center">
-                        <p class="text-sm text-slate-400">Current Interest on Reserves (IOR)</p>
-                        <p class="text-xl md:text-2xl font-bold text-green-400">~4.50% APY</p>
-                        <p class="text-xs text-slate-500">Risk-Free Income for Banks</p>
-                    </div>
-                </div>
-                <!-- Text -->
-                <div class="w-full md:w-7/12 space-y-6 pb-8">
-                    <div class="glass p-6 rounded-lg border-l-4 border-slate-500">
-                        <h4 class="text-lg md:text-xl font-bold text-white mb-2">The "Floor System" Explained</h4>
-                        <p class="text-slate-300 text-sm leading-7">
-                            Since 2008, the Fed has operated a "Floor System." They flooded the banking system with cash
-                            (QE). To keep interest rates from falling to zero due to this oversupply, the Fed pays banks
-                            interest on these reserves. This creates a "floor" below which banks will not lend.
-                        </p>
-                    </div>
-                    <div class="glass p-6 rounded-lg border-l-4 border-red-500">
-                        <h4 class="text-lg md:text-xl font-bold text-white mb-2">The Warsh Critique</h4>
-                        <p class="text-slate-300 text-sm leading-7 mb-4">
-                            Warsh argues this system has turned commercial banks into public utilities. Instead of doing
-                            the hard work of underwriting loans to small businesses or corporations, banks simply park
-                            excess cash at the Fed and collect billions in risk-free profit.
-                        </p>
-                        <ul class="list-disc list-inside text-slate-400 text-sm space-y-2">
-                            <li>Disconnects banks from market discipline.</li>
-                            <li>Subsidizes large "Money Center" banks over smaller regional banks.</li>
-                            <li>Traps liquidity inside the Fed rather than letting it circulate.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <p>That kind of strategic inaction would be virtually impossible to prove, would carry none of the legal risk of active sabotage, and would be consistent with someone who built his career on letting situations play out while positioning himself to benefit from outcomes.</p>
 
-        <!-- Slide 4: The Pivot: Tiered Reserves Proposal (Aligned) -->
-        <div id="slide-4" class="slide flex-col items-center justify-center min-h-full p-6 md:p-8 max-w-6xl mx-auto">
-            <h3 class="text-2xl md:text-3xl font-bold mb-8 text-white self-start border-b border-slate-700 pb-4 w-full">
-                The Pivot: Tiered Reserves Proposal</h3>
+    <h3>What Netflix Gains if the Deal Dies</h3>
+    <div class="flow">
+      <div class="flow-step">Paramount submits $32+/share offer</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">WBD board declares it a "superior proposal"</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">Netflix declines to match (4-day window)</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step highlight-step">Netflix collects $2.8B breakup fee (paid by Paramount)</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">Netflix stock rebounds as deal overhang lifts</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">Netflix avoids DOJ antitrust scrutiny entirely</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step highlight-step">Netflix exits richer, leaner, and politically unencumbered</div>
+    </div>
+  </section>
 
-            <div class="flex flex-col md:flex-row gap-8 w-full">
-                <!-- Left: The Alignment (Trump & Housing) -->
-                <div class="w-full md:w-2/5 space-y-6">
-                    <div class="glass p-5 rounded-lg border-l-4 border-blue-400">
-                        <h4 class="text-lg font-bold text-blue-400 mb-2">1. The "Shadow Rate Cut"</h4>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Ending the rate on excess reserves forces banks to panic-buy assets to escape the 0% trap.
-                            This creates massive demand for bonds, driving market rates down <strong>without the Fed
-                                officially pivoting</strong>. This delivers the low borrowing costs President Trump
-                            demands, bypassing the "High for Longer" policy rate.
-                        </p>
-                    </div>
-                    <div class="glass p-5 rounded-lg border-l-4 border-green-400">
-                        <h4 class="text-lg font-bold text-green-400 mb-2">2. Fixing Housing Affordability</h4>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Starved of yield at the short end, banks and funds are forced further out the curve into
-                            <strong>10-Year Treasuries and Mortgage-Backed Securities (MBS)</strong>. This buying
-                            pressure crushes long-term yields, directly lowering mortgage rates and solving the
-                            affordability crisis.
-                        </p>
-                    </div>
-                </div>
+  <!-- SECTION 6: THE DECISION PROCESS -->
+  <section class="section">
+    <span class="section-number">VI.</span>
+    <h2>How the WBD Decision Works</h2>
 
-                <!-- Right: The Buckets Visual -->
-                <div class="w-full md:w-3/5 grid grid-cols-1 md:grid-cols-2 gap-6 items-center pb-8">
-                    <!-- Bucket 1: Required -->
-                    <div
-                        class="glass p-8 rounded-xl flex flex-col items-center text-center opacity-60 grayscale h-48 md:h-64 justify-center">
-                        <div class="w-12 h-12 bg-slate-700 rounded-full flex items-center justify-center mb-4">
-                            <i data-lucide="lock" class="w-6 h-6 text-slate-300"></i>
-                        </div>
-                        <h4 class="text-lg font-bold mb-1 text-slate-200">Required Reserves</h4>
-                        <p class="text-xs text-slate-400 mb-3">Regulatory Minimum (~$200B)</p>
-                        <div class="px-3 py-2 bg-slate-800 rounded border border-slate-600">
-                            <span class="block text-lg font-bold text-white">Market Rate</span>
-                        </div>
-                    </div>
+    <p>The decision is a <strong>multi-step process</strong> involving both the WBD board and shareholders:</p>
 
-                    <!-- Bucket 2: Excess -->
-                    <div
-                        class="glass p-8 rounded-xl flex flex-col items-center text-center border-2 border-blue-500 bg-blue-900/10 relative overflow-hidden h-64 md:h-72 justify-center shadow-lg shadow-blue-500/10">
-                        <div
-                            class="absolute top-0 right-0 bg-blue-500 text-white text-[10px] px-2 py-1 font-bold rounded-bl uppercase tracking-wider">
-                            Target Capital</div>
-                        <div
-                            class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-4 shadow-lg shadow-blue-500/20">
-                            <i data-lucide="log-out" class="w-8 h-8 text-white"></i>
-                        </div>
-                        <h4 class="text-xl font-bold mb-1 text-white">Excess Reserves</h4>
-                        <p class="text-xs text-slate-300 mb-4">The "Lazy" Money (~$2.9T)</p>
-                        <div class="w-full py-2 bg-red-500/90 rounded shadow-lg mb-2">
-                            <span class="block text-2xl font-bold text-white">0.00%</span>
-                        </div>
-                        <p class="text-[10px] text-blue-300 italic">"Deploy to the Real Economy or lose money"</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <p><strong>Step 1 — Board as Gatekeeper:</strong> The WBD board evaluates Paramount's offer and determines whether it constitutes a "superior proposal." They currently unanimously back Netflix but have a fiduciary duty to maximize shareholder value.</p>
 
-        <!-- Slide 5: Private Sector QE -->
-        <div id="slide-5" class="slide flex-col items-center justify-center min-h-full p-6 md:p-8 max-w-6xl mx-auto">
-            <h3
-                class="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-white self-start border-b border-slate-700 pb-4 w-full">
-                "Private Sector QE": The Flow of Funds</h3>
+    <p><strong>Step 2 — Netflix Matching Rights:</strong> If the board deems Paramount's offer superior, Netflix has 4 business days to match. If Netflix matches, the existing deal stays. If Netflix declines, the board can change its recommendation.</p>
 
-            <div class="glass p-6 rounded-lg mb-8 w-full">
-                <p class="text-slate-300 text-sm">
-                    This creates a stimulus effect similar to Quantitative Easing (QE), but instead of the Fed printing
-                    <em>new</em> money, the private sector is forced to circulate <em>existing</em> money. Velocity
-                    increases, driving asset prices up and yields down.
-                </p>
-            </div>
+    <p><strong>Step 3 — Shareholder Vote:</strong> A special meeting is scheduled for March 20. Shareholders of record as of Feb 4 vote on the merger. The board recommends, but shareholders have the final say.</p>
 
-            <!-- Flow Diagram -->
-            <div class="flex flex-col md:flex-row items-center md:items-start justify-between w-full gap-4 pb-10">
+    <p><strong>Step 4 — Regulatory Approval:</strong> Whichever deal proceeds still requires DOJ approval, European Commission clearance, UK CMA approval, and numerous other international regulatory sign-offs.</p>
+  </section>
 
-                <!-- Step 1 -->
-                <div class="flex flex-col items-center flow-arrow w-full md:w-1/4 group">
-                    <div
-                        class="w-20 h-20 md:w-24 md:h-24 bg-slate-800 border border-slate-600 rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:border-red-400 transition-colors">
-                        <i data-lucide="landmark"
-                            class="w-8 h-8 md:w-10 md:h-10 text-slate-400 group-hover:text-red-400"></i>
-                    </div>
-                    <h4 class="font-bold text-white">Banks</h4>
-                    <p class="text-xs text-slate-400 text-center mt-2 leading-tight">Must dump 0% cash to find yield.
-                        First stop: safe government debt.</p>
-                </div>
+  <!-- SECTION 7: REGULATORY -->
+  <section class="section">
+    <span class="section-number">VII.</span>
+    <h2>Regulatory Landscape</h2>
 
-                <!-- Step 2 -->
-                <div class="flex flex-col items-center flow-arrow w-full md:w-1/4 group">
-                    <div
-                        class="w-20 h-20 md:w-24 md:h-24 bg-blue-900/20 border border-blue-500/50 rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:bg-blue-900/40 transition-colors">
-                        <span class="text-xl md:text-2xl font-bold text-blue-400">T-Bills</span>
-                    </div>
-                    <h4 class="font-bold text-blue-400">Short-Term Debt</h4>
-                    <p class="text-xs text-slate-400 text-center mt-2 leading-tight">Massive buying pressure crushes
-                        T-Bill yields (2-Year Treasury).</p>
-                </div>
-
-                <!-- Step 3 -->
-                <div class="flex flex-col items-center flow-arrow w-full md:w-1/4 group">
-                    <div
-                        class="w-20 h-20 md:w-24 md:h-24 bg-purple-900/20 border border-purple-500/50 rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:bg-purple-900/40 transition-colors">
-                        <i data-lucide="building-2" class="w-8 h-8 md:w-10 md:h-10 text-purple-400"></i>
-                    </div>
-                    <h4 class="font-bold text-purple-400">MBS & Bonds</h4>
-                    <p class="text-xs text-slate-400 text-center mt-2 leading-tight">Capital forced further out the
-                        curve into Mortgages & Corporate Bonds.</p>
-                </div>
-
-                <!-- Step 4 -->
-                <div class="flex flex-col items-center w-full md:w-1/4 group">
-                    <div
-                        class="w-20 h-20 md:w-24 md:h-24 bg-green-900/20 border border-green-500/50 rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:bg-green-900/40 transition-colors">
-                        <i data-lucide="trending-up" class="w-8 h-8 md:w-10 md:h-10 text-green-400"></i>
-                    </div>
-                    <h4 class="font-bold text-green-400">Equities</h4>
-                    <p class="text-xs text-slate-400 text-center mt-2 leading-tight">Nominal Asset Inflation as money
-                        chases returns ("Crack-up Boom").</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 6: Winners & Losers -->
-        <div id="slide-6" class="slide flex-col items-center justify-center min-h-full p-6 md:p-8 max-w-6xl mx-auto">
-            <h3
-                class="text-2xl md:text-3xl font-bold mb-8 md:mb-10 text-white self-start border-b border-slate-700 pb-4 w-full">
-                Market Winners & Losers</h3>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full pb-8">
-                <!-- Winners -->
-                <div class="border border-green-500/20 bg-green-900/5 rounded-xl p-6 md:p-8 backdrop-blur-sm">
-                    <div class="flex items-center gap-3 mb-6 border-b border-green-500/20 pb-4">
-                        <div class="p-2 bg-green-500/10 rounded-lg">
-                            <i data-lucide="thumbs-up" class="text-green-400"></i>
-                        </div>
-                        <h4 class="text-xl md:text-2xl font-bold text-green-400">The Winners</h4>
-                    </div>
-                    <ul class="space-y-6">
-                        <li class="flex items-start gap-4">
-                            <span
-                                class="font-bold text-slate-200 min-w-[100px] md:min-w-[120px] text-sm md:text-base">Homebuyers</span>
-                            <span class="text-slate-400 text-xs md:text-sm leading-snug"><strong>Why:</strong> The flow
-                                of funds into Mortgage-Backed Securities (MBS) drives mortgage rates down, improving
-                                affordability.</span>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <span
-                                class="font-bold text-slate-200 min-w-[100px] md:min-w-[120px] text-sm md:text-base">US
-                                Treasury</span>
-                            <span class="text-slate-400 text-xs md:text-sm leading-snug"><strong>Why:</strong> Banks are
-                                forced buyers of T-Bills. This lowers the government's cost of borrowing
-                                significantly.</span>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <span
-                                class="font-bold text-slate-200 min-w-[100px] md:min-w-[120px] text-sm md:text-base">Bitcoin/Gold</span>
-                            <span class="text-slate-400 text-xs md:text-sm leading-snug"><strong>Why:</strong>
-                                Increasing velocity of dollars creates fears of debasement, driving demand for hard
-                                assets.</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Losers -->
-                <div class="border border-red-500/20 bg-red-900/5 rounded-xl p-6 md:p-8 backdrop-blur-sm">
-                    <div class="flex items-center gap-3 mb-6 border-b border-red-500/20 pb-4">
-                        <div class="p-2 bg-red-500/10 rounded-lg">
-                            <i data-lucide="thumbs-down" class="text-red-400"></i>
-                        </div>
-                        <h4 class="text-xl md:text-2xl font-bold text-red-400">The Losers</h4>
-                    </div>
-                    <ul class="space-y-6">
-                        <li class="flex items-start gap-4">
-                            <span
-                                class="font-bold text-slate-200 min-w-[100px] md:min-w-[120px] text-sm md:text-base">Big
-                                Banks</span>
-                            <span class="text-slate-400 text-xs md:text-sm leading-snug"><strong>Why:</strong> Money
-                                center banks (JPM, BAC) lose billions in easy NII. They must work harder for lower
-                                margins.</span>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <span
-                                class="font-bold text-slate-200 min-w-[100px] md:min-w-[120px] text-sm md:text-base">The
-                                Dollar</span>
-                            <span class="text-slate-400 text-xs md:text-sm leading-snug"><strong>Why:</strong> If US
-                                short-term yields crash, the "Carry Trade" appeal of the USD diminishes for foreign
-                                investors.</span>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <span
-                                class="font-bold text-slate-200 min-w-[100px] md:min-w-[120px] text-sm md:text-base">Cash
-                                Savers</span>
-                            <span class="text-slate-400 text-xs md:text-sm leading-snug"><strong>Why:</strong> Money
-                                Market Funds will see their yields drop as the underlying T-Bill yields are
-                                compressed.</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 7: The Dollar & Bitcoin -->
-        <div id="slide-7" class="slide flex-col items-center justify-center min-h-full p-6 md:p-8 max-w-6xl mx-auto">
-            <h3 class="text-2xl md:text-3xl font-bold mb-8 text-white self-start border-b border-slate-700 pb-4 w-full">
-                Deep Dive: Currency & Digital Assets</h3>
-
-            <div class="flex flex-col md:flex-row w-full gap-8 pb-10">
-
-                <!-- Dollar Section -->
-                <div class="w-full md:w-1/2 flex flex-col p-6 rounded-xl border border-red-500/20 bg-red-900/5">
-                    <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-xl md:text-2xl font-bold text-red-400">The Dollar: Stealth Devaluation</h3>
-                        <i data-lucide="trending-down" class="w-8 h-8 text-red-500"></i>
-                    </div>
-
-                    <div class="space-y-4 flex-1">
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Warsh is ideologically a "Strong Dollar" advocate, yet this specific mechanism creates a
-                            <strong>weaker currency</strong>. It is a paradox: he talks tough on inflation, but creates
-                            "Shadow QE."
-                        </p>
-                        <div class="bg-slate-800 p-5 rounded-lg border border-slate-700">
-                            <h5 class="text-red-300 font-bold text-sm mb-2">The Yield Trap</h5>
-                            <p class="text-slate-400 text-xs leading-relaxed">
-                                Foreign investors hold USD for yield. If Warsh's policy forces T-Bill yields down to 2%
-                                while inflation remains at 3%, <strong>Real Yields become negative</strong>. Capital
-                                will flee to other currencies or assets to preserve purchasing power.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bitcoin Section -->
-                <div class="w-full md:w-1/2 flex flex-col p-6 rounded-xl border border-orange-500/20 bg-orange-900/5">
-                    <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-xl md:text-2xl font-bold text-orange-400">Bitcoin: The "Perfect Storm"</h3>
-                        <i data-lucide="bitcoin" class="w-8 h-8 text-orange-500"></i>
-                    </div>
-
-                    <div class="space-y-4 flex-1">
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            This environment is arguably more bullish for crypto than standard rate cuts. It combines
-                            high liquidity with a loss of faith in centralized banking plumbing.
-                        </p>
-                        <ul class="space-y-3 mt-4">
-                            <li class="flex items-start gap-3">
-                                <i data-lucide="check-circle" class="w-5 h-5 text-orange-500 shrink-0"></i>
-                                <div>
-                                    <span class="block text-slate-200 font-bold text-sm">Liquidity Overflow</span>
-                                    <span class="text-slate-400 text-xs">Trillions of dormant dollars are forced into
-                                        circulation, finding their way to scarce assets.</span>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <i data-lucide="check-circle" class="w-5 h-5 text-orange-500 shrink-0"></i>
-                                <div>
-                                    <span class="block text-slate-200 font-bold text-sm">Stablecoin Legitimacy</span>
-                                    <span class="text-slate-400 text-xs">Warsh prefers private stablecoins (USDC) over
-                                        CBDCs. This integrates crypto into the US financial rail.</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    <div class="scenario-grid">
+      <div class="scenario bullish">
+        <div class="scenario-label">Favoring Paramount</div>
+        <p><strong>Trump admin alignment:</strong> Ellison family ties, Delrahim as CLO, political favor.</p>
+        <p><strong>HSR cleared:</strong> Paramount's DOJ waiting period expired Feb 19. Netflix is still responding to its second request.</p>
+        <p><strong>Easier antitrust story:</strong> Two legacy studios merging raises fewer streaming concentration concerns than Netflix + HBO Max.</p>
+        <p><strong>Paramount argument:</strong> Their deal is "pro-competitive" — more theatrical releases, stronger Hollywood.</p>
+      </div>
+      <div class="scenario bearish">
+        <div class="scenario-label">Risks for Paramount</div>
+        <p><strong>International regulators</strong> (EU, UK CMA) operate independently of Trump and may scrutinize heavily.</p>
+        <p><strong>Foreign financing</strong> from Saudi, Qatari, and UAE sovereign wealth funds could trigger national security reviews.</p>
+        <p><strong>Political reversal:</strong> Democratic senators are already demanding Ellison preserve records of Trump admin contacts. Midterm shift could reopen scrutiny.</p>
+        <p><strong>Massive leverage:</strong> The combined entity would carry enormous debt. Credit markets can shift.</p>
+      </div>
     </div>
 
-    <!-- Controls -->
-    <!-- Added safe-area padding for iPhone X+ home bar -->
-    <div
-        class="h-16 md:h-20 bg-slate-950 flex items-center justify-between px-4 md:px-12 border-t border-slate-800 z-50 shrink-0 pb-[env(safe-area-inset-bottom)]">
-        <button onclick="prevSlide()"
-            class="flex items-center gap-2 px-4 md:px-6 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-all font-medium border border-slate-700 text-sm md:text-base">
-            <i data-lucide="arrow-left" class="w-4 h-4"></i> Prev
-        </button>
+    <p>The U.S. regulatory path clearly favors Paramount under this administration. But "easier" does not mean "certain," and international clearances could add 6-12 months of uncertainty — which is why WBD won't trade at the full offer price even after a deal is struck.</p>
+  </section>
 
-        <div class="flex gap-2 md:gap-3" id="indicators">
-            <!-- Indicators injected by JS -->
-        </div>
+  <!-- SECTION 8: TIMING -->
+  <section class="section">
+    <span class="section-number">VIII.</span>
+    <h2>The Suspicious Timing</h2>
 
-        <button onclick="nextSlide()"
-            class="flex items-center gap-2 px-4 md:px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white transition-all font-medium shadow-lg shadow-blue-900/20 text-sm md:text-base">
-            Next <i data-lucide="arrow-right" class="w-4 h-4"></i>
-        </button>
+    <p>Whether intentional or coincidental, the chronology is remarkable:</p>
+
+    <div class="evidence-box">
+      <div class="ev-label">Timeline Alignment</div>
+      <p><strong>Feb 17:</strong> WBD opens 7-day negotiation window with Paramount. Deadline: Feb 23.</p>
+      <p><strong>Feb 19:</strong> Rice's podcast airs — directly in the middle of the most sensitive window of the entire deal process.</p>
+      <p><strong>Feb 19:</strong> Paramount's HSR waiting period expires — same day as Rice's podcast.</p>
+      <p><strong>Feb 21:</strong> Trump demands Netflix fire Rice or "pay the consequences," introducing direct White House hostility to the Netflix deal.</p>
+      <p><strong>Feb 23:</strong> Paramount deadline. Expected $32/share offer. Netflix has 4 days to respond.</p>
+      <p>Rice's comments detonated at literally the worst possible moment if Netflix actually <em>wants</em> this deal — or at the most convenient possible moment if they'd prefer it to fall apart.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 9: SCENARIOS -->
+  <section class="section">
+    <span class="section-number">IX.</span>
+    <h2>Possible Outcomes</h2>
+
+    <div class="scenario-grid">
+      <div class="scenario bullish">
+        <div class="scenario-label">Netflix Walks (Thesis Confirmed)</div>
+        <p>Paramount offers $32+. Netflix declines to match, citing "hostile regulatory environment" and "political interference." Netflix collects $2.8B. Stock rallies as deal overhang evaporates. The Rice episode provides perfect narrative cover.</p>
+        <p><strong class="green">Netflix wins. WBD shareholders get a higher price. Paramount gets WBD.</strong></p>
+      </div>
+      <div class="scenario bearish">
+        <div class="scenario-label">Netflix Matches (Thesis Rejected)</div>
+        <p>Netflix raises to $32+ and fights for WBD. This would suggest the acquisition was always the genuine strategic priority and Rice's comments were simply an unforced error by a board member.</p>
+        <p><strong class="red">Expensive for Netflix. Regulatory battle with hostile Trump DOJ ensues.</strong></p>
+      </div>
     </div>
 
-    <script>
-        lucide.createIcons();
+    <div class="callout">
+      <div class="callout-label">The Tell</div>
+      <p>Watch whether Netflix makes any effort to distance itself from Rice's comments — or quietly does nothing. <strong>Silence would be the most interesting signal for this thesis.</strong> As of this writing, Netflix has declined to comment on Trump's demand to fire Rice.</p>
+    </div>
+  </section>
 
-        let currentSlide = 1;
-        const totalSlides = 7;
-        const mainContainer = document.querySelector('.overflow-y-auto');
+  <!-- SECTION 10: RISKS -->
+  <section class="section">
+    <span class="section-number">X.</span>
+    <h2>Arguments Against This Thesis</h2>
 
-        function updateSlide() {
-            // Hide all
-            document.querySelectorAll('.slide').forEach(el => {
-                el.classList.remove('active');
-            });
-            // Show current
-            document.getElementById(`slide-${currentSlide}`).classList.add('active');
+    <p><strong>Legal exposure:</strong> If it ever emerged that Rice's comments were coordinated, it could constitute bad faith dealing under the merger agreement — potentially jeopardizing the breakup fee or exposing Netflix to litigation and SEC scrutiny.</p>
 
-            // Update dots
-            const indicators = document.getElementById('indicators');
-            indicators.innerHTML = '';
-            for (let i = 1; i <= totalSlides; i++) {
-                const dot = document.createElement('div');
-                dot.className = `h-2 rounded-full transition-all duration-300 cursor-pointer ${i === currentSlide ? 'bg-blue-500 w-6 md:w-8' : 'bg-slate-700 w-2 hover:bg-slate-600'}`;
-                dot.onclick = () => { currentSlide = i; updateSlide(); };
-                indicators.appendChild(dot);
-            }
+    <p><strong>Rice's track record:</strong> She has a decades-long pattern of exactly this kind of blunt, politically charged rhetoric. Diplomats called her "rude." She withdrew from Secretary of State consideration rather than moderate her positions. The simplest explanation is that she was being herself.</p>
 
-            // Reset Scroll
-            if (mainContainer) mainContainer.scrollTop = 0;
-        }
+    <p><strong>Board independence:</strong> Rice is a board member, not an executive. She doesn't have the operational involvement that would make her a natural participant in M&A strategy. Board members have independent fiduciary duties.</p>
 
-        function nextSlide() {
-            if (currentSlide < totalSlides) {
-                currentSlide++;
-                updateSlide();
-            }
-        }
+    <p><strong>Reputational risk:</strong> Future M&A counterparties might be wary of negotiating with a company perceived as engaging in this kind of gamesmanship.</p>
 
-        function prevSlide() {
-            if (currentSlide > 1) {
-                currentSlide--;
-                updateSlide();
-            }
-        }
+    <p><strong>The "strategic inaction" version is unfalsifiable:</strong> There's no way to prove someone <em>didn't</em> make a phone call. This makes the theory compelling as narrative but weak as evidence.</p>
+  </section>
 
-        // Initialize dots
-        updateSlide();
+  <div class="separator">◆ ◆ ◆</div>
 
-        // Keyboard nav
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') nextSlide();
-            if (e.key === 'ArrowLeft') prevSlide();
-        });
-    </script>
+  <section class="section" style="border-bottom: none;">
+    <span class="section-number">Conclusion</span>
+    <h2>A $2.8 Billion Coincidence?</h2>
+
+    <p class="lead">The most likely explanation remains the simplest: Susan Rice said what Susan Rice always says, without regard for corporate consequences. But the alignment of incentives, timing, and relationships is unusually precise.</p>
+
+    <p>Netflix gains nothing by winning a bidding war that its own shareholders don't want, that faces a hostile regulatory environment, and that would burden the company with massive integration costs. It gains everything by walking away with $2.8 billion, a recovered stock price, and the narrative of disciplined capital allocation.</p>
+
+    <p>Whether by design or by fortune, the pieces are falling Netflix's way. The next four days will tell us everything.</p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  This document represents speculative analysis for discussion purposes only. It does not constitute financial advice, investment recommendation, or an assertion of fact regarding the intentions of any individual or corporation mentioned herein. All market data and quotes are sourced from publicly available reporting as of February 23, 2026.
+</footer>
+
 </body>
-
 </html>
